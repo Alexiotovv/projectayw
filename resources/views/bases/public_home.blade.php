@@ -36,6 +36,7 @@
 	<link rel="stylesheet" href="../../../assets/css/style.css">
 	<!-- Responsive CSS -->
 	<link rel="stylesheet" href="../../../assets/css/responsive.css">
+	@yield('script_head')
 </head>
 
 <body>
@@ -73,20 +74,20 @@
 					<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 						<ul class="navbar-nav">
 							<li class="nav-item"> 
-								<a href="#" class="nav-link">Inicio <i class="fas"></i></a>
+								<a href="{{route('inicio')}}" class="nav-link">Home <i class=""></i></a>
 								
 							</li>
 							<li class="nav-item">
-								<a href="about.html" class="nav-link">Nosotros</a>
+								<a href="" class="nav-link">About US</a>
 							</li>
 							
 							
 							<li class="nav-item">
-								<a href="contact.html" class="nav-link">Contacto</a>
+								<a href="{{route('contacto.index')}}" class="nav-link">Contact</a>
 							</li>
 						</ul>
 						<div class="other-option">
-							<a class="default-btn" href="">Clientes <span></span></a>
+							<a class="default-btn" href="">Customers <span></span></a>
 						</div>
 					</div>
 				</nav>
@@ -126,6 +127,7 @@
 	<!-- Main JS -->
 	<script src="../../../assets/js/main.js"></script>
 	
+	@yield('script_footer')
 </body>
 
 

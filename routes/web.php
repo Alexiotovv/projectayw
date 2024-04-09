@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomesController;
+use App\Http\Controllers\ContactosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,3 +14,5 @@ use App\Http\Controllers\HomesController;
 |
 */
 Route::get('/',[HomesController::class,'index'])->name('inicio');
+Route::get('/contacto/index',[ContactosController::class,'index'])->name('contacto.index');
+Route::post('/contacto/store',[ContactosController::class,'store'])->name('contacto.store');
