@@ -9,7 +9,7 @@
 					<div class="row align-items-center">
 						<div class="col-lg-6 col-md-12">
 							<div class="main-banner-content">
-								<h1>AYW Services and Solutions for Business Companies.</h1>
+								<h1>AYW Services and Solutions and for Business Companies.</h1>
 								<p>We offer services in technological innovation and digital transformation.</p>
 								<div class="banner-btn">
 									<a class="default-btn-one" href="">Our Services <span></span></a>
