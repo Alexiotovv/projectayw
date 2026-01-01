@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomesController;
 use App\Http\Controllers\ContactosController;
+use App\Http\Controllers\CoursesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +21,6 @@ Route::post('/contacto/store',[ContactosController::class,'store'])->name('conta
 Route::view('/customers', 'customers.index')->name('customers');
 
 Route::view('/portfolio', 'portfolio.portfolio-index')->name('portfolio');
+
+//Cursos
+Route::get('/courses/index',[CoursesController::class,'index'])->name('courses.index');
