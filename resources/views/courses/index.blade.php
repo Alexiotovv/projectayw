@@ -117,7 +117,7 @@
 						</p>
 						<div class="hire-btn">
 							<a class="default-btn-one"
-							   href="https://wa.me/51980534198?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Curso%20Taller%20VPS%20y%20Laravel."
+							   href="https://wa.me/51980534198?text=%F0%9F%98%83%20%C2%A1Hola%2C%20buenas%20tardes%21%0A%F0%9F%92%BB%20Me%20interesa%20inscribirme%20al%20**Curso%20Taller%20de%20VPS%20Ubuntu%2022%20%2B%20Laravel**.%0A%F0%9F%93%8C%20**Modalidad%3A**%20Virtual%20o%20Presencial.%0A%F0%9F%8C%9F%20%C2%A1Muchas%20gracias%21"
 							   target="_blank">
 								Consultar Cupos <span></span>
 							</a>
