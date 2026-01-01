@@ -85,9 +85,13 @@
 							<li class="nav-item">
 								<a href="{{route('contacto.index')}}" class="nav-link">Contact</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{route('portfolio')}}" class="nav-link">Portfolio</a>
+							</li>
+							
 						</ul>
 						<div class="other-option">
-							<a class="default-btn" href="">Customers <span></span></a>
+							<a class="default-btn" href="{{route('customers')}}">Customers <span></span></a>
 						</div>
 					</div>
 				</nav>

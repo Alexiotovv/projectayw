@@ -14,7 +14,11 @@
 								<div class="banner-btn">
 									<a class="default-btn-one" href="">Our Services <span></span></a>
 									{{-- <a class="default-btn-two" href="{{route('contacto.index')}}">Contact US <span></span></a> --}}
-									<a class="default-btn-two" target="_blank" href="https://wa.me/51980534198"><img src="../../assets/img/icon/whatsapp-fill.png" alt="">Whatsapp<span></span></a>
+									<a class="default-btn-two" target="_blank" href="https://wa.me/51980534198"><img src="../../assets/img/icon/whatsapp-fill.png" alt="">Chat Whatsapp<span></span></a>
+									{{-- <a class="default-btn-two" href="https://m.me/TU_USUARIO_O_ID_DE_PAGINA" target="_blank" class="btn btn-primary">
+									💬 Chat Messenger
+									</a> --}}
+
 								</div>
 							</div>
 						</div>
@@ -101,10 +105,10 @@
 				<div class="col-lg-6 col-md-12">
 					<div class="about-image">
 						<img src="../../../assets/img/about.jpg" alt="About image">
-						<div class="years-design">
+						{{-- <div class="years-design">
 							<h2>5</h2>
 							<h5>Years Of Experience</h5>
-                        </div>
+                        </div> --}}
 					</div>
 				</div>
 			</div>
@@ -215,7 +219,7 @@
 							<div class="footer-info-contact">
 								<i class="flaticon-placeholder"></i>
 								<h3>Address</h3>
-								<span>Iquitos-Maynas-Perú, ZipCode: 16000</span>
+								<span>Perú, </span>
 							</div>
 						</div>
 					</div>

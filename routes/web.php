@@ -16,3 +16,6 @@ use App\Http\Controllers\ContactosController;
 Route::get('/',[HomesController::class,'index'])->name('inicio');
 Route::get('/contacto/index',[ContactosController::class,'index'])->name('contacto.index');
 Route::post('/contacto/store',[ContactosController::class,'store'])->name('contacto.store');
+Route::view('/customers', 'customers.index')->name('customers');
+
+Route::view('/portfolio', 'portfolio.portfolio-index')->name('portfolio');

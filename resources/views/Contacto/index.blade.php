@@ -7,7 +7,7 @@
 			<div class="d-table-cell">
 				<div class="container">
 					<div class="page-title-content">
-						<h2>Contacto</h2>
+						<h2>Contact</h2>
 						<ul>
 							<li><a href="{{route('inicio')}}">Home</a>
 							</li>
@@ -31,7 +31,7 @@
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact-form">
 						<p class="form-message"></p>
-						<form id="contact-form" class="contact-form form" action="{{route('contacto.store')}}" method="POST">@csrf
+						{{-- <form id="contact-form" class="contact-form form" action="{{route('contacto.store')}}" method="POST">@csrf
 							<div class="row">
 								<div class="col-lg-6 col-md-6">
 									<div class="form-group">
@@ -66,7 +66,11 @@
                                     >Send Message <span></span></button>
 								</div>
 							</div>
-						</form>
+						</form> --}}
+						<h4>
+							Write to us at our email "info@aywsolution.com", and we’ll get back to you as soon as possible.
+
+						</h3>
 					</div>
 				</div>
 			</div>
@@ -189,8 +193,8 @@
 							</div>
 							<div class="footer-info-contact">
 								<i class="flaticon-placeholder"></i>
-								<h3>Dirección</h3>
-								<span>Calle Magdalena Nueva 640, Iquitos-Maynas-Perú, Código Postal: 16000</span>
+								<h3>Address</h3>
+								<span>Perú,</span>
 							</div>
 						</div>
 					</div>
