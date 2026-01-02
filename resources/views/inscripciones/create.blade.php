@@ -105,7 +105,7 @@
                                         <label class="custom-file-label" for="voucher">Selecciona una imagen del voucher</label>
                                     </div>
                                     <small class="form-text text-muted">
-                                        Sube una imagen del comprobante de pago (PLIN/YAPE 980534198)
+                                        Sube una imagen del comprobante de pago (PLIN/YAPE 980534198) Alex Vasquez
                                     </small>
                                     <small class="text-danger" id="voucher-error"></small>
                                     

@@ -197,6 +197,7 @@
 								<li><a href="#">It Consulting</a></li>
 								<li><a href="#">Software Development</a></li>
 								<li><a href="#">Process automation</a></li>
+								<li><a href="{{asset('courses/index')}}">Courses</a></li>
 							</ul>
 						</div>
 					</div>

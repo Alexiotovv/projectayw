@@ -57,8 +57,8 @@
 				<div class="techvio-responsive-menu">
 					<div class="logo">
 						<a href="index-2.html">
-							<img src="../../../assets/img/logo.png" class="white-logo" alt="logo">AYW
-							<img src="../../../assets/img/logo-black.png" class="black-logo" alt="logo">
+							<img src="../../../assets/img/logo_ayw.png" class="white-logo" alt="logo">AYW
+							<img src="../../../assets/img/logo-ayw.png" class="black-logo" alt="logo">
 						</a>
 					</div>
 				</div>
@@ -68,8 +68,8 @@
 			<div class="container">
 				<nav class="navbar navbar-expand-md navbar-light">
 					<a class="navbar-brand" href="index-2.html">
-						<img src="../../../assets/img/logo.png" class="white-logo" alt="logo">
-						<img src="../../../assets/img/logo-black.png" class="black-logo" alt="logo">
+						<img src="../../../assets/img/logo_ayw.png" class="white-logo" alt="logo">
+						<img src="../../../assets/img/logo_ayw.png" class="black-logo" alt="logo">
 					</a>
 					<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 						<ul class="navbar-nav">
