@@ -4,17 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomesController;
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\InscripcionCursoController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 Route::get('/',[HomesController::class,'index'])->name('inicio');
 Route::get('/contacto/index',[ContactosController::class,'index'])->name('contacto.index');
 Route::post('/contacto/store',[ContactosController::class,'store'])->name('contacto.store');
@@ -24,3 +16,9 @@ Route::view('/portfolio', 'portfolio.portfolio-index')->name('portfolio');
 
 //Cursos
 Route::get('/courses/index',[CoursesController::class,'index'])->name('courses.index');
+
+//Inscripción
+Route::get('/inscripcion-curso', [InscripcionCursoController::class, 'create'])->name('inscripcion.curso');
+Route::post('/inscripcion-curso', [InscripcionCursoController::class, 'store'])->name('inscripcion.curso.store');
+
+

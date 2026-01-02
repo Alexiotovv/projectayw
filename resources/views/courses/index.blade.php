@@ -91,8 +91,16 @@
 						<a href="https://wa.me/51980534198?text=Hola%2C%20buenas%20tardes.%0ADeseo%20inscribirme%20en%20el%20Curso%20Taller%20de%20Configuraci%C3%B3n%20de%20VPS%20Ubuntu%2022%20con%20Laravel.%0AModalidad:%20Virtual%20o%20Presencial.%0AGracias."
 						   target="_blank"
 						   class="default-btn submit-btn mt-3">
-							Inscribirme Ahora <span></span>
+							💬 Más información <span></span>
 						</a>
+
+						<!-- En tu vista del curso, agrega esto donde quieras el botón -->
+						
+							<a href="{{ route('inscripcion.curso') }}" class="default-btn submit-btn">
+								📝 Registrarme al Curso <span></span>
+							</a>
+							<p class="mt-2"><small>¡Cupos limitados!</small></p>
+						
 
 						<p class="mt-3">
 							<small>Cupos limitados · Taller práctico guiado paso a paso</small>
@@ -122,6 +130,10 @@
 								Consultar Cupos <span></span>
 							</a>
 						</div>
+
+						
+
+
 					</div>
 				</div>
 			</div>
