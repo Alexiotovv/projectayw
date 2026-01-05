@@ -67,8 +67,13 @@ class InscripcionCursoController extends Controller
     // Función para enviar a Telegram
     private function enviarATelegram($inscripcion)
     {
-        $botToken = '7176635834:AAE4_aIsLrY_arta5vj3PbjHR6ghSpxHt1k'; // Tu token
-        $chatId = '6543016341'; // Tu chat ID
+        $botToken = config('services.telegram.bot_token');
+        $chatId = config('services.telegram.chat_id');
+
+        if (!$botToken || !$chatId) {
+            \Log::error('Configuración de Telegram no encontrada en .env');
+            return;
+        }
 
         $modalidadText = $inscripcion->modalidad == 'virtual' ? 'Virtual (S/ 50)' : 'Presencial (S/ 80)';
         
