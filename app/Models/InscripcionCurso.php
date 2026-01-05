@@ -9,12 +9,12 @@ class InscripcionCurso extends Model
     protected $table = 'inscripciones_cursos';
     
     protected $fillable = [
-        'dni',
         'nombres',
         'apellidos',
         'modalidad',
         'voucher_path',
-        'estado'
+        'estado',
+        'email'
     ];
 
     protected $casts = [

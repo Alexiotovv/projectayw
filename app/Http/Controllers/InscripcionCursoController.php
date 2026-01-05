@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\InscripcionCurso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class InscripcionCursoController extends Controller
@@ -19,15 +18,16 @@ class InscripcionCursoController extends Controller
     // Procesar inscripción
     public function store(Request $request)
     {
-        // Validación
+        // Validación (sin DNI)
         $validator = Validator::make($request->all(), [
-            'dni' => 'required|digits:8',
             'nombres' => 'required|string|max:100',
             'apellidos' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
             'modalidad' => 'required|in:virtual,presencial',
             'voucher' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ], [
-            'dni.digits' => 'El DNI debe tener 8 dígitos.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'Debe ingresar un correo electrónico válido.',
             'voucher.required' => 'Debe subir una imagen del voucher.',
             'voucher.image' => 'El voucher debe ser una imagen.',
             'voucher.max' => 'La imagen no debe superar los 2MB.'
@@ -45,11 +45,11 @@ class InscripcionCursoController extends Controller
             $voucherPath = $request->file('voucher')->store('vouchers', 'public');
         }
 
-        // Guardar inscripción
+        // Guardar inscripción (sin DNI)
         $inscripcion = InscripcionCurso::create([
-            'dni' => $request->dni,
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
+            'email' => $request->email,
             'modalidad' => $request->modalidad,
             'voucher_path' => $voucherPath
         ]);
@@ -79,9 +79,9 @@ class InscripcionCursoController extends Controller
         
         $mensaje = "🎓 *NUEVA INSCRIPCIÓN AL CURSO* 🎓\n";
         $mensaje .= "━━━━━━━━━━━━━━━━━━━━\n";
-        $mensaje .= "👤 *DNI:* {$inscripcion->dni}\n";
         $mensaje .= "📝 *Nombres:* {$inscripcion->nombres}\n";
         $mensaje .= "📝 *Apellidos:* {$inscripcion->apellidos}\n";
+        $mensaje .= "📧 *Correo:* {$inscripcion->email}\n";
         $mensaje .= "🎯 *Modalidad:* {$modalidadText}\n";
         $mensaje .= "━━━━━━━━━━━━━━━━━━━━\n";
         $mensaje .= "🆔 *ID Inscripción:* {$inscripcion->id}\n";

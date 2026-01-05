@@ -46,23 +46,14 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="contact-form">
                     <div id="message" class="alert d-none"></div>
                     
                     <form id="inscripcionForm" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="dni">DNI *</label>
-                                    <input type="text" name="dni" id="dni" class="form-control" 
-                                           placeholder="Ingresa tu DNI (8 dígitos)" maxlength="8">
-                                    <small class="text-danger" id="dni-error"></small>
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="modalidad">Modalidad *</label>
                                     <select name="modalidad" id="modalidad" class="form-control">
@@ -73,19 +64,18 @@
                                     <small class="text-danger" id="modalidad-error"></small>
                                 </div>
                             </div>
-                        </div>
+                        
 
-                        <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="nombres">Nombres *</label>
                                     <input type="text" name="nombres" id="nombres" class="form-control" 
-                                           placeholder="Ingresa tus nombres">
+                                            placeholder="Ingresa tus nombres">
                                     <small class="text-danger" id="nombres-error"></small>
                                 </div>
                             </div>
                             
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="apellidos">Apellidos *</label>
                                     <input type="text" name="apellidos" id="apellidos" class="form-control" 
@@ -93,10 +83,19 @@
                                     <small class="text-danger" id="apellidos-error"></small>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-12">
+                        
+                            <div class="col-lg-4">
+                                <label for="email" class="form-label">Correo Electrónico *</label>
+                                <input type="email" 
+                                    class="form-control" 
+                                    id="email" 
+                                    name="email" 
+                                    required
+                                    placeholder="ejemplo@correo.com">
+                                <div class="invalid-feedback" id="email-error"></div>
+                            </div>
+                        
+                            <div class="col-lg-8">
                                 <div class="form-group">
                                     <label for="voucher">Voucher de Pago *</label>
                                     <div class="custom-file">
