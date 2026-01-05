@@ -66,6 +66,37 @@
 							Jóvenes, estudiantes y personas que desean aprender
 							despliegue real de aplicaciones web.
 						</p>
+
+						<!-- Sección del Instructor - Añadida aquí -->
+						<div class="instructor-section mt-4 p-3" style="background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
+							<h5>👨‍🏫 Impartido por:</h5>
+							<div class="d-flex align-items-center mt-3">
+								<div class="me-3">
+									<img src="{{ asset('assets/img/foto_alex.jpeg') }}" 
+										 alt="Alex Vásquez" 
+										 class="rounded-circle"
+										 style="width: 80px; height: 80px; object-fit: cover; border: 3px solid #007bff;">
+								</div>
+								<div>
+									<h6 class="mb-1" style="font-weight: 600;">Alex Vásquez</h6>
+									<p class="mb-2" style="font-size: 0.9rem;">Especialista en Desarrollo Web y DevOps</p>
+									<div class="d-flex gap-2">
+										<a href="https://www.linkedin.com/in/alexvasquezv/" 
+										   target="_blank"
+										   class="btn btn-sm btn-outline-primary"
+										   style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">
+											<i class="fab fa-linkedin"></i> LinkedIn
+										</a>
+										<a href="https://alexvasquez.aywsolution.com/" 
+										   target="_blank"
+										   class="btn btn-sm btn-outline-success"
+										   style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">
+											<i class="fas fa-briefcase"></i> Portafolio
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -84,7 +115,7 @@
 						<h4>📲 Inscripciones</h4>
 						<p>
 							Contáctanos para reservar tu cupo:<br>
-							<strong>info@aywsolution.com</strong><br>
+							<strong>avasquez@aywsolution.com</strong><br>
 							<strong>WhatsApp: +51 980 534 198</strong>
 						</p>
 
@@ -130,10 +161,6 @@
 								Consultar Cupos <span></span>
 							</a>
 						</div>
-
-						
-
-
 					</div>
 				</div>
 			</div>
