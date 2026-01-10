@@ -7,10 +7,64 @@ use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\InscripcionCursoController;
 
 
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Customer\Auth\LoginController;
+use App\Http\Controllers\Customer\DashboardController;
+use App\Http\Controllers\Customer\ServiceController;
+use App\Http\Controllers\Customer\PaymentController;
+use App\Http\Controllers\EmailCorporateController;
+
+use App\Http\Controllers\DomainController;
+
+
+
+// nuevas rutas
+// Ruta customers - redirige al login
+Route::get('/customers', function () {
+    return redirect()->route('customer.login');
+})->name('customers');
+
+
+// Dominios
+Route::prefix('api/domain')->group(function () {
+    Route::post('/check', [DomainController::class, 'checkAvailability'])->name('domain.check');
+    Route::post('/suggestions', [DomainController::class, 'getSuggestions'])->name('domain.suggestions');
+});
+
+Route::get('/email-corporate', [EmailCorporateController::class, 'index'])->name('email.corporate');
+Route::post('/email-corporate/contact', [EmailCorporateController::class, 'contactForm'])->name('email.corporate.contact');
+
+
+
+
+
+// Grupo de rutas para clientes
+Route::prefix('customer')->name('customer.')->group(function () {
+    // Autenticación
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    
+    // Registro
+    Route::get('/register', [LoginController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [LoginController::class, 'register']);
+    
+    // Rutas protegidas
+    Route::middleware(['auth:web', 'customer'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/services', [ServiceController::class, 'index'])->name('services');
+        Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
+        Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    });
+});
+
+////////////////////////////////////
+
+
 Route::get('/',[HomesController::class,'index'])->name('inicio');
 Route::get('/contacto/index',[ContactosController::class,'index'])->name('contacto.index');
 Route::post('/contacto/store',[ContactosController::class,'store'])->name('contacto.store');
-Route::view('/customers', 'customers.index')->name('customers');
+// Route::view('/customers', 'customers.index')->name('customers');
 
 Route::view('/portfolio', 'portfolio.portfolio-index')->name('portfolio');
 

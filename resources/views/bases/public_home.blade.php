@@ -10,8 +10,8 @@
 	<!-- Title -->
 	<title>AYW - IT Solutions & Business Services</title>
 	<!-- Google Fonts -->
-	<link href="../../../fonts.googleapis.com/css2ad7e.css?family=Dosis:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-	<link href="../../../fonts.googleapis.com/css2e303.css?family=Catamaran:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="../../../assets/img/favicon.png">
 	<!-- Bootstrap Min CSS -->
@@ -36,6 +36,9 @@
 	<link rel="stylesheet" href="../../../assets/css/style.css">
 	<!-- Responsive CSS -->
 	<link rel="stylesheet" href="../../../assets/css/responsive.css">
+	
+	<link rel="stylesheet" href="../../../assets/css/domain-search.css">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	@yield('script_head')
 </head>
 
@@ -58,7 +61,7 @@
 					<div class="logo">
 						<a href="index-2.html">
 							<img src="../../../assets/img/logo_ayw.png" class="white-logo" alt="logo">AYW
-							<img src="../../../assets/img/logo-ayw.png" class="black-logo" alt="logo">
+							<img src="../../../assets/img/logo_ayw.png" class="black-logo" alt="logo">
 						</a>
 					</div>
 				</div>
@@ -80,18 +83,20 @@
 							<li class="nav-item">
 								<a href="" class="nav-link">About US</a>
 							</li>
-							
-							
+													
 							<li class="nav-item">
 								<a href="{{route('contacto.index')}}" class="nav-link">Contact</a>
 							</li>
 							<li class="nav-item">
 								<a href="{{route('portfolio')}}" class="nav-link">Portfolio</a>
 							</li>
+							<li class="nav-item">
+								<a href="{{ route('email.corporate') }}" class="nav-link">Correos Corporativos</a>
+							</li>
 							
 						</ul>
 						<div class="other-option">
-							<a class="default-btn" href="{{route('customers')}}">Customers <span></span></a>
+							<a class="default-btn" href="{{route('customer.login')}}">Customers <span></span></a>
 						</div>
 					</div>
 				</nav>
@@ -122,8 +127,8 @@
 	<!-- Isotope Min JS -->
 	<script src="../../../assets/js/isotope.pkgd.min.js"></script>
 	<!-- Particles JS -->
-    <script src="../../../assets/js/particles.min.js"></script>
-    <script src="../../../assets/js/particles-app.js"></script>
+    {{-- <script src="../../../assets/js/particles.min.js"></script>
+    <script src="../../../assets/js/particles-app.js"></script> --}}
 	<!-- Swiper Min JS -->
 	<script src="../../../assets/js/swiper.min.js"></script>
 	<!-- WOW Min JS -->
