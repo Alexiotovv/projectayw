@@ -13,10 +13,66 @@ use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\ServiceController;
 use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\EmailCorporateController;
-
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\CertificadoController;
+use App\Http\Controllers\AuthController;
 
 
+//Login
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    
+    // O si quieres que /admin redirija al dashboard:
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    
+    // Certificados
+    Route::resource('certificados', CertificadoController::class)->except(['show']);
+    Route::get('certificados/preview', [CertificadoController::class, 'preview'])->name('certificados.preview');
+});
+
+
+// Rutas públicas
+Route::get('/certificados/verificar', [CertificadoController::class, 'verificar'])
+    ->name('certificados.verificar');
+    
+Route::post('/certificados/buscar', [CertificadoController::class, 'buscar'])
+    ->name('certificado.buscar');
+    
+Route::get('/certificados/{hash}', [CertificadoController::class, 'show'])
+    ->name('certificados.show');
+    
+Route::get('/certificados/{hash}/pdf', [CertificadoController::class, 'pdf'])
+    ->name('certificados.pdf');
+
+// Rutas de administración (protegidas)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/certificados', [CertificadoController::class, 'index'])
+        ->name('certificados.index');
+        
+    Route::get('/admin/certificados/crear', [CertificadoController::class, 'create'])
+        ->name('certificados.create');
+        
+    Route::post('/admin/certificados', [CertificadoController::class, 'store'])
+        ->name('certificados.store');
+        
+    Route::get('/admin/certificados/{id}/editar', [CertificadoController::class, 'edit'])
+        ->name('certificados.edit');
+        
+    Route::put('/admin/certificados/{id}', [CertificadoController::class, 'update'])
+        ->name('certificados.update');
+        
+    Route::delete('/admin/certificados/{id}', [CertificadoController::class, 'destroy'])
+        ->name('certificados.destroy');
+        
+    Route::get('/admin/certificados/preview', [CertificadoController::class, 'preview'])
+        ->name('certificados.preview');
+});
 
 // nuevas rutas
 // Ruta customers - redirige al login
