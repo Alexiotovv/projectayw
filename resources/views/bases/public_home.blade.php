@@ -91,14 +91,14 @@
 								<a href="{{route('portfolio')}}" class="nav-link">{{ __('home.menu_portfolio') }}</a>
 							</li>
 							<li class="nav-item">
-								<a href="{{ route('public.services.index') }}" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+								<a href="{{ route('public.services.index') }}" class="nav-link">{{ __('services.menu_services') }} <i class="fas fa-chevron-down"></i></a>
 								<ul class="dropdown-menu">
 									@forelse(($publicServiceTypes ?? []) as $serviceType)
 									<li class="nav-item">
 										<a href="{{ route('public.services.show', $serviceType['slug']) }}" class="nav-link">{{ $serviceType['label'] }}</a>
 									</li>
 									@empty
-									<li class="nav-item"><a href="{{ route('public.services.index') }}" class="nav-link">Ver servicios</a></li>
+									<li class="nav-item"><a href="{{ route('public.services.index') }}" class="nav-link">{{ __('services.menu_view_services') }}</a></li>
 									@endforelse
 								</ul>
 							</li>

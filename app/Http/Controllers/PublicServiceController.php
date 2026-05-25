@@ -16,7 +16,7 @@ class PublicServiceController extends Controller
             ->get();
 
         $currentType = null;
-        $currentTypeLabel = 'Todos los servicios';
+        $currentTypeLabel = __('services.all_services');
 
         return view('public.services.index', compact('plans', 'currentType', 'currentTypeLabel'));
     }

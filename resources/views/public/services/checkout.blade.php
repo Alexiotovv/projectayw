@@ -6,10 +6,10 @@
         <div class="d-table-cell">
             <div class="container">
                 <div class="page-title-content">
-                    <h2>Registro y Contratación</h2>
+                    <h2>{{ __('services.checkout_title') }}</h2>
                     <ul>
-                        <li><a href="{{ route('inicio') }}">Home</a></li>
-                        <li><a href="{{ route('public.services.index') }}">Servicios</a></li>
+                        <li><a href="{{ route('inicio') }}">{{ __('services.home') }}</a></li>
+                        <li><a href="{{ route('public.services.index') }}">{{ __('services.breadcrumbs_services') }}</a></li>
                         <li>{{ $servicePlan->name }}</li>
                     </ul>
                 </div>
@@ -23,11 +23,11 @@
         <div class="row g-4">
             <div class="col-lg-5">
                 <div class="single-contact-info-box">
-                    <h4 class="mb-3">Resumen del plan</h4>
+                    <h4 class="mb-3">{{ __('services.plan_summary') }}</h4>
                     <p><strong>Plan:</strong> {{ $servicePlan->name }}</p>
-                    <p><strong>Tipo:</strong> {{ \Illuminate\Support\Str::headline(str_replace('-', ' ', $servicePlan->type)) }}</p>
-                    <p><strong>Precio:</strong> S/. {{ number_format($servicePlan->price, 2) }}</p>
-                    <p><strong>Ciclo:</strong> {{ $servicePlan->billing_cycle === 'yearly' ? 'Anual' : 'Mensual' }}</p>
+                    <p><strong>{{ __('services.type') }}:</strong> {{ \Illuminate\Support\Str::headline(str_replace('-', ' ', $servicePlan->type)) }}</p>
+                    <p><strong>{{ __('services.price') }}:</strong> S/. {{ number_format($servicePlan->price, 2) }}</p>
+                    <p><strong>{{ __('services.billing_cycle') }}:</strong> {{ $servicePlan->billing_cycle === 'yearly' ? __('services.yearly') : __('services.monthly') }}</p>
                     @if($servicePlan->description)
                     <p>{{ $servicePlan->description }}</p>
                     @endif
@@ -43,7 +43,7 @@
 
             <div class="col-lg-7">
                 <div class="contact-form">
-                    <h3 class="mb-3">Completa tus datos y solicita el plan</h3>
+                    <h3 class="mb-3">{{ __('services.complete_data') }}</h3>
 
                     @if($errors->any())
                     <div class="alert alert-danger">
@@ -59,58 +59,58 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label class="form-label d-block">Tipo de solicitud</label>
+                            <label class="form-label d-block">{{ __('services.request_type') }}</label>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="account_mode" id="mode_register" value="register" {{ old('account_mode', 'register') === 'register' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="mode_register">Soy cliente nuevo (registrarme)</label>
+                                <label class="form-check-label" for="mode_register">{{ __('services.new_customer') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="account_mode" id="mode_login" value="login" {{ old('account_mode') === 'login' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="mode_login">Ya tengo cuenta</label>
+                                <label class="form-check-label" for="mode_login">{{ __('services.existing_customer') }}</label>
                             </div>
                         </div>
 
                         <div id="register_fields" style="display: {{ old('account_mode', 'register') === 'register' ? 'block' : 'none' }};">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Nombre completo *</label>
+                                <label class="form-label">{{ __('services.full_name') }} *</label>
                                 <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Empresa *</label>
+                                <label class="form-label">{{ __('services.company') }} *</label>
                                 <input type="text" name="company" class="form-control" value="{{ old('company') }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Correo *</label>
+                                <label class="form-label">{{ __('services.email') }} *</label>
                                 <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Confirmar correo *</label>
+                                <label class="form-label">{{ __('services.confirm_email') }} *</label>
                                 <input type="email" name="email_confirmation" class="form-control" value="{{ old('email_confirmation') }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Teléfono *</label>
+                                <label class="form-label">{{ __('services.phone') }} *</label>
                                 <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Nombre del servicio *</label>
+                                <label class="form-label">{{ __('services.service_name') }} *</label>
                                 <input type="text" name="service_name" class="form-control" value="{{ old('service_name', $servicePlan->name) }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Contraseña *</label>
+                                <label class="form-label">{{ __('services.password') }} *</label>
                                 <input type="password" name="password" class="form-control" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Confirmar contraseña *</label>
+                                <label class="form-label">{{ __('services.confirm_password') }} *</label>
                                 <input type="password" name="password_confirmation" class="form-control" required>
                             </div>
                         </div>
@@ -119,25 +119,25 @@
                         <div id="login_fields" style="display: {{ old('account_mode') === 'login' ? 'block' : 'none' }};">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Correo de tu cuenta *</label>
+                                    <label class="form-label">{{ __('services.account_email') }} *</label>
                                     <input type="email" name="login_email" class="form-control" value="{{ old('login_email') }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Contraseña *</label>
+                                    <label class="form-label">{{ __('services.password') }} *</label>
                                     <input type="password" name="login_password" class="form-control">
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Dominio (opcional)</label>
+                            <label class="form-label">{{ __('services.domain_optional') }}</label>
                             <input type="text" name="domain" class="form-control" value="{{ old('domain') }}" placeholder="midominio.com">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Método de pago *</label>
+                            <label class="form-label">{{ __('services.payment_method') }} *</label>
                             <select name="payment_method_id" id="payment_method_id" class="form-select" required>
-                                <option value="">Selecciona...</option>
+                                <option value="">{{ __('services.select_option') }}</option>
                                 @foreach($paymentMethods as $method)
                                 <option value="{{ $method->id }}" data-instructions="{{ e($method->instructions ?? '') }}" data-qr="{{ $method->qr_image_path ? \Illuminate\Support\Facades\Storage::url($method->qr_image_path) : '' }}" @selected(old('payment_method_id') == $method->id)>
                                     {{ $method->name }} ({{ strtoupper($method->type) }})
@@ -154,15 +154,18 @@
 
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="auto_renew" value="1" id="auto_renew" checked>
-                            <label class="form-check-label" for="auto_renew">Renovación automática</label>
+                            <label class="form-check-label" for="auto_renew">{{ __('services.auto_renew') }}</label>
                         </div>
 
                         <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" name="terms" id="terms" value="1" required>
-                            <label class="form-check-label" for="terms">Acepto términos y condiciones.</label>
+                            <label class="form-check-label" for="terms">{{ __('services.accept_terms') }}</label>
                         </div>
 
-                        <button type="submit" class="default-btn">Registrarme y solicitar plan <span></span></button>
+                        <button type="submit" class="default-btn">
+                            {{ old('account_mode', 'register') === 'login' ? __('services.submit_request_plan') : __('services.submit_register_request') }}
+                            <span></span>
+                        </button>
                     </form>
                 </div>
             </div>
