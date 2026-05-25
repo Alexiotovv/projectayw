@@ -165,6 +165,7 @@ Route::prefix('customer')->name('customer.')->group(function () {
 
         Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
         Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
+        Route::post('/payments/{id}/method', [PaymentController::class, 'updateMethod'])->name('payments.updateMethod');
         Route::post('/payments/{id}/submit', [PaymentController::class, 'submit'])->name('payments.submit');
 
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');

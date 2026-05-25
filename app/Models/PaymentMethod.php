@@ -15,6 +15,11 @@ class PaymentMethod extends Model
         'type',
         'instructions',
         'qr_image_path',
+        'bank_name',
+        'bank_account_holder',
+        'bank_account_number',
+        'bank_account_cci',
+        'gateway_url',
         'is_active',
     ];
 

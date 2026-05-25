@@ -36,8 +36,50 @@
                         <img src="{{ Storage::url($paymentMethod->qr_image_path) }}" alt="Código QR" style="max-width: 220px; width: 100%; border-radius: 8px;">
                     </div>
                     @endif
+
+                    @if($paymentMethod->type === 'transfer')
+                    <div class="alert alert-warning mb-3">
+                        <h6 class="mb-2">Datos bancarios para transferencia</h6>
+                        <p class="mb-1"><strong>Banco:</strong> {{ $paymentMethod->bank_name ?: 'N/A' }}</p>
+                        <p class="mb-1"><strong>Titular:</strong> {{ $paymentMethod->bank_account_holder ?: 'N/A' }}</p>
+                        <p class="mb-1"><strong>N° Cuenta:</strong> {{ $paymentMethod->bank_account_number ?: 'N/A' }}</p>
+                        <p class="mb-0"><strong>CCI:</strong> {{ $paymentMethod->bank_account_cci ?: 'N/A' }}</p>
+                    </div>
+                    @endif
+
+                    @if($paymentMethod->type === 'card')
+                    <div class="mb-3">
+                        @if($paymentMethod->gateway_url)
+                        <a href="{{ $paymentMethod->gateway_url }}" target="_blank" class="btn btn-success w-100">
+                            Pagar con tarjeta
+                        </a>
+                        @else
+                        <div class="alert alert-info mb-0">No hay enlace de pasarela configurado para tarjeta.</div>
+                        @endif
+                    </div>
+                    @endif
                 @else
                     <p class="text-muted">No hay instrucciones configuradas para este método.</p>
+                @endif
+
+                @if($payment->status === 'pending')
+                <hr>
+                <h6 class="mb-2">Cambiar método de pago</h6>
+                <form action="{{ route('customer.payments.updateMethod', $payment->id) }}" method="POST" class="mb-3">
+                    @csrf
+                    <div class="mb-2">
+                        <label class="form-label">Método disponible</label>
+                        <select name="payment_method_id" class="form-select" required>
+                            <option value="">Selecciona...</option>
+                            @foreach($paymentMethods as $method)
+                            <option value="{{ $method->id }}" @selected($method->code === $payment->payment_method)>
+                                {{ $method->name }} ({{ strtoupper($method->type) }})
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button class="btn btn-outline-primary w-100" type="submit">Actualizar método</button>
+                </form>
                 @endif
 
                 <form action="{{ route('customer.payments.submit', $payment->id) }}" method="POST" enctype="multipart/form-data">

@@ -30,6 +30,38 @@
     <p><strong>Instrucciones de pago:</strong><br>{{ $paymentMethod->instructions }}</p>
     @endif
 
+    @if($paymentMethod->type === 'qr' && $paymentMethod->qr_image_path)
+    @php
+        $qrPublicPath = \Illuminate\Support\Facades\Storage::url($paymentMethod->qr_image_path);
+        $qrAbsoluteUrl = rtrim(config('app.url'), '/') . $qrPublicPath;
+    @endphp
+    <p><strong>Código QR para pago:</strong></p>
+    <p>
+        <img src="{{ $qrAbsoluteUrl }}" alt="Código QR" style="max-width: 220px; width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+    </p>
+    @endif
+
+    @if($paymentMethod->type === 'transfer')
+    <p><strong>Datos bancarios para transferencia:</strong></p>
+    <ul>
+        <li><strong>Banco:</strong> {{ $paymentMethod->bank_name ?: 'N/A' }}</li>
+        <li><strong>Titular:</strong> {{ $paymentMethod->bank_account_holder ?: 'N/A' }}</li>
+        <li><strong>N° Cuenta:</strong> {{ $paymentMethod->bank_account_number ?: 'N/A' }}</li>
+        <li><strong>CCI:</strong> {{ $paymentMethod->bank_account_cci ?: 'N/A' }}</li>
+    </ul>
+    @endif
+
+    @if($paymentMethod->type === 'card')
+    <p><strong>Pago con tarjeta:</strong></p>
+    @if($paymentMethod->gateway_url)
+    <p>
+        <a href="{{ $paymentMethod->gateway_url }}" style="display:inline-block;background:#0f766e;color:#fff;padding:10px 16px;text-decoration:none;border-radius:6px;">Ir a pasarela de pago</a>
+    </p>
+    @else
+    <p>No hay enlace de pasarela configurado. Contáctanos para completar el pago.</p>
+    @endif
+    @endif
+
     <p>Puedes ingresar a tu panel para subir comprobante y dar seguimiento a tu solicitud.</p>
     <p>Gracias por confiar en AYW.</p>
 </body>

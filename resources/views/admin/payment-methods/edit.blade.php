@@ -45,6 +45,28 @@
                     </div>
                     @endif
                 </div>
+                <div class="col-md-6">
+                    <label class="form-label">URL de Pasarela (Tarjeta)</label>
+                    <input type="url" name="gateway_url" class="form-control" value="{{ old('gateway_url', $paymentMethod->gateway_url) }}" placeholder="https://pasarela.ejemplo.com/pago">
+                    <small class="text-muted">Se usa cuando el tipo es tarjeta.</small>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Banco</label>
+                    <input type="text" name="bank_name" class="form-control" value="{{ old('bank_name', $paymentMethod->bank_name) }}" placeholder="BCP">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Titular de la Cuenta</label>
+                    <input type="text" name="bank_account_holder" class="form-control" value="{{ old('bank_account_holder', $paymentMethod->bank_account_holder) }}" placeholder="AYW Solution SAC">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">N° de Cuenta</label>
+                    <input type="text" name="bank_account_number" class="form-control" value="{{ old('bank_account_number', $paymentMethod->bank_account_number) }}" placeholder="191-XXXXXX-0-XX">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">CCI</label>
+                    <input type="text" name="bank_account_cci" class="form-control" value="{{ old('bank_account_cci', $paymentMethod->bank_account_cci) }}" placeholder="002-191-XXXXXXXXXXXXXX">
+                    <small class="text-muted">Se usa cuando el tipo es transferencia.</small>
+                </div>
                 <div class="col-12">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="is_active" value="1" id="is_active" @checked(old('is_active', $paymentMethod->is_active))>

@@ -33,9 +33,36 @@ class PaymentController extends Controller
             ->with(['service', 'user'])
             ->findOrFail($id);
 
-        $paymentMethod = PaymentMethod::where('code', $payment->payment_method)->where('is_active', true)->first();
+        $paymentMethod = PaymentMethod::where('code', $payment->payment_method)->first();
+        $paymentMethods = PaymentMethod::where('is_active', true)->orderBy('name')->get();
 
-        return view('customer.payment.show', compact('payment', 'paymentMethod'));
+        return view('customer.payment.show', compact('payment', 'paymentMethod', 'paymentMethods'));
+    }
+
+    public function updateMethod(Request $request, $id)
+    {
+        $payment = Auth::user()->payments()->findOrFail($id);
+
+        if ($payment->status !== 'pending') {
+            return back()->with('error', 'Solo puedes cambiar el método de pago cuando la factura está pendiente.');
+        }
+
+        $validated = $request->validate([
+            'payment_method_id' => ['required', 'exists:payment_methods,id'],
+        ]);
+
+        $paymentMethod = PaymentMethod::where('id', $validated['payment_method_id'])
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        $payment->update([
+            'payment_method' => $paymentMethod->code,
+            'transaction_id' => null,
+            'voucher_image' => null,
+            'notes' => null,
+        ]);
+
+        return back()->with('success', 'Método de pago actualizado. Ya puedes seguir las nuevas instrucciones.');
     }
 
     public function submit(Request $request, $id)
