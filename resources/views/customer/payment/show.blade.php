@@ -31,9 +31,9 @@
                 @if($paymentMethod)
                     <p class="mb-2">{{ $paymentMethod->instructions ?: 'Usa este método y registra tu comprobante.' }}</p>
 
-                    @if($paymentMethod->type === 'qr' && $paymentMethod->qr_image_path)
+                    @if($paymentMethod->type === 'qr' && $paymentMethod->qr_image_url)
                     <div class="mb-3 text-center">
-                        <img src="{{ Storage::url($paymentMethod->qr_image_path) }}" alt="Código QR" style="max-width: 220px; width: 100%; border-radius: 8px;">
+                        <img src="{{ $paymentMethod->qr_image_url }}" alt="Código QR" style="max-width: 220px; width: 100%; border-radius: 8px;">
                     </div>
                     @endif
 

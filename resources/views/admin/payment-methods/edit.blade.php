@@ -39,9 +39,9 @@
                 <div class="col-md-6">
                     <label class="form-label">Imagen QR (opcional)</label>
                     <input type="file" name="qr_image" class="form-control" accept="image/*">
-                    @if($paymentMethod->qr_image_path)
+                    @if($paymentMethod->qr_image_url)
                     <div class="mt-2">
-                        <img src="{{ Storage::url($paymentMethod->qr_image_path) }}" alt="QR" style="width: 92px; height: 92px; object-fit: cover; border-radius: 6px;">
+                        <img src="{{ $paymentMethod->qr_image_url }}" alt="QR" style="width: 92px; height: 92px; object-fit: cover; border-radius: 6px;">
                     </div>
                     @endif
                 </div>

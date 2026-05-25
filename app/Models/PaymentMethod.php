@@ -42,17 +42,17 @@ class PaymentMethod extends Model
         }
 
         if (Str::startsWith($path, '/storage/')) {
-            return $path;
+            return url($path);
         }
 
         if (Str::startsWith($path, 'storage/')) {
-            return '/' . ltrim($path, '/');
+            return url('/' . ltrim($path, '/'));
         }
 
         if (Str::startsWith($path, 'public/')) {
             $path = Str::after($path, 'public/');
         }
 
-        return Storage::url(ltrim($path, '/'));
+        return url(Storage::url(ltrim($path, '/')));
     }
 }

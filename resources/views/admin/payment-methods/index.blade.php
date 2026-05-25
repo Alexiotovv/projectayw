@@ -33,8 +33,8 @@
                         <td><span class="badge bg-light text-dark">{{ $method->code }}</span></td>
                         <td>{{ strtoupper($method->type) }}</td>
                         <td>
-                            @if($method->qr_image_path)
-                            <img src="{{ Storage::url($method->qr_image_path) }}" alt="QR" style="width: 56px; height: 56px; object-fit: cover; border-radius: 6px;">
+                            @if($method->qr_image_url)
+                            <img src="{{ $method->qr_image_url }}" alt="QR" style="width: 56px; height: 56px; object-fit: cover; border-radius: 6px;">
                             @else
                             <span class="text-muted">No</span>
                             @endif

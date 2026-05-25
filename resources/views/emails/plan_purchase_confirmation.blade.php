@@ -30,14 +30,10 @@
     <p><strong>Instrucciones de pago:</strong><br>{{ $paymentMethod->instructions }}</p>
     @endif
 
-    @if($paymentMethod->type === 'qr' && $paymentMethod->qr_image_path)
-    @php
-        $qrPublicPath = \Illuminate\Support\Facades\Storage::url($paymentMethod->qr_image_path);
-        $qrAbsoluteUrl = rtrim(config('app.url'), '/') . $qrPublicPath;
-    @endphp
+    @if($paymentMethod->type === 'qr' && $paymentMethod->qr_image_url)
     <p><strong>Código QR para pago:</strong></p>
     <p>
-        <img src="{{ $qrAbsoluteUrl }}" alt="Código QR" style="max-width: 220px; width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+        <img src="{{ $paymentMethod->qr_image_url }}" alt="Código QR" style="max-width: 220px; width: 100%; border: 1px solid #ddd; border-radius: 8px;">
     </p>
     @endif
 
