@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\AywResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,5 +45,10 @@ class User extends Authenticatable
     public function isCustomer()
     {
         return $this->hasRole('customer');
+    }
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new AywResetPasswordNotification($token));
     }
 }
