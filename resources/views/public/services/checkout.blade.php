@@ -139,7 +139,7 @@
                             <select name="payment_method_id" id="payment_method_id" class="form-select" required>
                                 <option value="">{{ __('services.select_option') }}</option>
                                 @foreach($paymentMethods as $method)
-                                <option value="{{ $method->id }}" data-instructions="{{ e($method->instructions ?? '') }}" data-qr="{{ $method->qr_image_path ? \Illuminate\Support\Facades\Storage::url($method->qr_image_path) : '' }}" @selected(old('payment_method_id') == $method->id)>
+                                <option value="{{ $method->id }}" data-instructions="{{ e($method->instructions ?? '') }}" data-qr="{{ $method->qr_image_url ?? '' }}" @selected(old('payment_method_id') == $method->id)>
                                     {{ $method->name }} ({{ strtoupper($method->type) }})
                                 </option>
                                 @endforeach
