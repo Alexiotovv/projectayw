@@ -8,6 +8,8 @@ use App\Http\Controllers\InscripcionCursoController;
 
 
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\PublicServiceController;
+use App\Http\Controllers\PublicServiceCheckoutController;
 use App\Http\Controllers\Customer\Auth\LoginController;
 use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\ServiceController;
@@ -16,6 +18,13 @@ use App\Http\Controllers\EmailCorporateController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ServicePlanController;
+use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\PaymentReviewController;
+use App\Http\Controllers\Admin\UserRoleController;
+use App\Http\Controllers\Admin\UserController;
 
 
 //Login
@@ -23,17 +32,51 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/lang/{locale}', function (string $locale) {
+    if (! in_array($locale, ['en', 'es'], true)) {
+        abort(404);
+    }
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    session(['locale' => $locale]);
+    app()->setLocale($locale);
+
+    $previousUrl = url()->previous();
+
+    return $previousUrl ? redirect()->to($previousUrl) : redirect()->route('inicio');
+})->name('lang.switch');
+
+
+Route::middleware(['auth', 'role:superadmin|admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    
-    // O si quieres que /admin redirija al dashboard:
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    
+    Route::get('/', [AdminController::class, 'dashboard']);
+
     // Certificados
     Route::resource('certificados', CertificadoController::class)->except(['show']);
     Route::get('certificados/preview', [CertificadoController::class, 'preview'])->name('certificados.preview');
+
+    // Gestión de Roles (solo superadmin)
+    Route::resource('roles', RoleController::class)->except(['show']);
+
+    // Usuarios y sus roles
+    Route::get('users/roles', [UserRoleController::class, 'index'])->name('users.roles');
+    Route::get('users/{user}/roles', [UserRoleController::class, 'edit'])->name('users.roles.edit');
+    Route::put('users/{user}/roles', [UserRoleController::class, 'update'])->name('users.roles.update');
+
+    // Gestión de usuarios (CRUD)
+    Route::resource('users', UserController::class)->except(['show']);
+
+    // Catálogo dinámico de servicios
+    Route::resource('service-plans', ServicePlanController::class)->except(['show']);
+
+    // Medios de pago (tarjeta / QR / transferencia / efectivo)
+    Route::resource('payment-methods', PaymentMethodController::class)->except(['show']);
+
+    // Revisión administrativa de pagos de clientes
+    Route::get('payments', [PaymentReviewController::class, 'index'])->name('payments.index');
+    Route::get('payments/{payment}', [PaymentReviewController::class, 'show'])->name('payments.show');
+    Route::post('payments/{payment}/approve', [PaymentReviewController::class, 'approve'])->name('payments.approve');
+    Route::post('payments/{payment}/reject', [PaymentReviewController::class, 'reject'])->name('payments.reject');
 });
 
 
@@ -77,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
 // nuevas rutas
 // Ruta customers - redirige al login
 Route::get('/customers', function () {
-    return redirect()->route('customer.login');
+    return redirect()->route('login');
 })->name('customers');
 
 
@@ -89,6 +132,11 @@ Route::prefix('api/domain')->group(function () {
 
 Route::get('/email-corporate', [EmailCorporateController::class, 'index'])->name('email.corporate');
 Route::post('/email-corporate/contact', [EmailCorporateController::class, 'contactForm'])->name('email.corporate.contact');
+
+Route::get('/services', [PublicServiceController::class, 'index'])->name('public.services.index');
+Route::get('/services/plan/{servicePlan}/checkout', [PublicServiceCheckoutController::class, 'create'])->name('public.services.checkout.create');
+Route::post('/services/plan/{servicePlan}/checkout', [PublicServiceCheckoutController::class, 'store'])->name('public.services.checkout.store');
+Route::get('/services/{typeSlug}', [PublicServiceController::class, 'show'])->name('public.services.show');
 
 
 
@@ -109,8 +157,18 @@ Route::prefix('customer')->name('customer.')->group(function () {
     Route::middleware(['auth:web', 'customer'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/services', [ServiceController::class, 'index'])->name('services');
+        Route::get('/services/catalog', [ServiceController::class, 'catalog'])->name('services.catalog');
+        Route::post('/services/{servicePlan}/acquire', [ServiceController::class, 'acquire'])->name('services.acquire');
+        Route::get('/services/{id}', [ServiceController::class, 'show'])->name('services.show');
+        Route::get('/services/{id}/renewal', [ServiceController::class, 'requestRenewal'])->name('services.requestRenewal');
+        Route::get('/services/{id}/support', [ServiceController::class, 'requestSupport'])->name('services.requestSupport');
+
         Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
+        Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
+        Route::post('/payments/{id}/submit', [PaymentController::class, 'submit'])->name('payments.submit');
+
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+        Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
     });
 });
 

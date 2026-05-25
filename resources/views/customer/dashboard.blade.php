@@ -1,6 +1,8 @@
-@extends('customer.layouts.app')
+@extends('bases.admin_base')
 
 @section('title', 'Dashboard')
+@section('page-title', 'Dashboard')
+@section('breadcrumb', 'Dashboard')
 
 @section('content')
 <div class="row mb-4">

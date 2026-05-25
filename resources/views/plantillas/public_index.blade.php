@@ -9,12 +9,12 @@
 					<div class="row align-items-center">
 						<div class="col-lg-6 col-md-12">
 							<div class="main-banner-content">
-								<h1>AYW Services and Solutions for Business Companies.</h1>
-								<p>We offer services in technological innovation and digital transformation.</p>
+								<h1>{{ __('home.hero_title') }}</h1>
+								<p>{{ __('home.hero_text') }}</p>
 								<div class="banner-btn">
-									<a class="default-btn-one" href="">Our Services <span></span></a>
+									<a class="default-btn-one" href="">{{ __('home.hero_services') }} <span></span></a>
 									{{-- <a class="default-btn-two" href="{{route('contacto.index')}}">Contact US <span></span></a> --}}
-									<a class="default-btn-two" target="_blank" href="https://wa.me/51980534198"><img src="../../assets/img/icon/whatsapp-fill.png" alt="">Chat Whatsapp<span></span></a>
+									{{-- <a class="default-btn-two" target="_blank" href="https://wa.me/51980534198"><img src="../../assets/img/icon/whatsapp-fill.png" alt="">{{ __('home.hero_whatsapp') }}<span></span></a> --}}
 									{{-- <a class="default-btn-two" href="https://m.me/TU_USUARIO_O_ID_DE_PAGINA" target="_blank" class="btn btn-primary">
 									💬 Chat Messenger
 									</a> --}}
@@ -44,22 +44,22 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="feature-single-item">
                         <img src="../../../assets/img/icon/feature-icon-1.svg" alt="icon">
-                        <h3>We advise & guide</h3>
-                        <p>Our commitment is more than a bond, it's a connection.</p>
+						<h3>{{ __('home.feature_1_title') }}</h3>
+						<p>{{ __('home.feature_1_text') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="feature-single-item">
                         <img src="../../../assets/img/icon/feature-icon-2.svg" alt="icon">
-                        <h3>Dedicated team</h3>
-                        <p>We have a team of experts dedicated to solving complex problems.</p>
+						<h3>{{ __('home.feature_2_title') }}</h3>
+						<p>{{ __('home.feature_2_text') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="feature-single-item">
                         <img src="../../../assets/img/icon/feature-icon-3.svg" alt="icon">
-                        <h3>Focused on Business</h3>
-                        <p>Your growth is our pleasure, so you can thrive..</p>
+						<h3>{{ __('home.feature_3_title') }}</h3>
+						<p>{{ __('home.feature_3_text') }}</p>
 						
                     </div>
                 </div>
@@ -74,31 +74,31 @@
 			<div class="row d-flex align-items-center">
 				<div class="col-lg-6 col-md-12">
 					<div class="about-content">
-						<h6 class="sub-title">Our Company</h6> 
-						<h2>Providing your company with quality IT service is our passion..</h2>
-						<p>Some of our services include::</p>
+						<h6 class="sub-title">{{ __('home.about_company') }}</h6> 
+						<h2>{{ __('home.about_title') }}</h2>
+						<p>{{ __('home.about_intro') }}</p>
 						<div class="skills">
 							<div class="skill-item">
-								<h6>IT Consulting, <em> </em></h6>
+								<h6>{{ __('home.about_service_1') }}, <em> </em></h6>
 								<div class="skill-progress">
 									<div class="progres" data-value="100%"></div>
 								</div>
 							</div>
 							<div class="skill-item">
-								<h6>Software Development<em> </em></h6>
+								<h6>{{ __('home.about_service_2') }}<em> </em></h6>
 								<div class="skill-progress">
 									<div class="progres" data-value="100%"></div>
 								</div>
 							</div>
 							<div class="skill-item">
-								<h6>Process Automations"<em> </em></h6>
+								<h6>{{ __('home.about_service_3') }}<em> </em></h6>
 								<div class="skill-progress">
 									<div class="progres" data-value="100%"></div>
 								</div>
 							</div>
 						</div>
 						<div class="about-btn-box"> 
-							<a class="default-btn" href="">Contact<span></span></a>
+							<a class="default-btn" href="">{{ __('home.about_contact') }}<span></span></a>
 						</div>
 					</div>
 				</div>
@@ -125,11 +125,11 @@
 				<div class="col-lg-8 offset-lg-2 col-md-12">
 					<div class="hire-content">
 						{{-- <h6 class="sub-title">Quieres trabajar con nosotros</h6> --}}
-						<h2>Digitally transform and grow your business.</h2>
-						<p>Gain a competitive advantage, optimize resources, implement solutions, or automate processes.</p>
+						<h2>{{ __('home.hire_title') }}</h2>
+						<p>{{ __('home.hire_text') }}</p>
 						<div class="hire-btn">
 							{{-- <a class="default-btn" href="tel:12345678">Call Now<span></span></a> --}}
-							<a class="default-btn-one" href="{{route('contacto.index')}}">Contact<span></span></a>
+							<a class="default-btn-one" href="{{route('contacto.index')}}">{{ __('home.hire_contact') }}<span></span></a>
 						</div>
 					</div>
 				</div>

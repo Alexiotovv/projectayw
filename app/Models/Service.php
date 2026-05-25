@@ -11,10 +11,12 @@ class Service extends Model
 
     protected $fillable = [
         'user_id',
+        'service_plan_id',
         'name',
         'type',
         'domain',
         'plan',
+        'features',
         'email_accounts',
         'storage_gb',
         'status',
@@ -27,6 +29,7 @@ class Service extends Model
     protected $casts = [
         'start_date' => 'date',
         'expiry_date' => 'date',
+        'features' => 'array',
         'auto_renew' => 'boolean',
     ];
 
@@ -40,6 +43,11 @@ class Service extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function servicePlan()
+    {
+        return $this->belongsTo(ServicePlan::class);
     }
 
     // Scope para servicios activos

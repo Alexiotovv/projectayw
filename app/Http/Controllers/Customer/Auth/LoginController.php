@@ -13,7 +13,7 @@ class LoginController extends Controller
     // Mostrar formulario de login
     public function showLoginForm()
     {
-        return view('customer.auth.login');
+        return view('auth.login');
     }
 
     // Procesar login
@@ -25,11 +25,21 @@ class LoginController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        $credentials['is_customer'] = true;
 
-        if (Auth::attempt($credentials, $request->remember)) {
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->route('customer.dashboard');
+
+            $user = Auth::user();
+
+            if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+                return redirect()->route('admin.dashboard');
+            }
+
+            if ($user->hasRole('customer')) {
+                return redirect()->route('customer.dashboard');
+            }
+
+            return redirect()->route('inicio');
         }
 
         return back()->withErrors([
@@ -60,7 +70,6 @@ class LoginController extends Controller
             'password' => Hash::make($request->password),
             'company' => $request->company,
             'phone' => $request->phone,
-            'is_customer' => true,
         ]);
 
         // Asignar rol de cliente
@@ -77,6 +86,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('customer.login');
+        return redirect()->route('login');
     }
 }

@@ -16,10 +16,12 @@ class Payment extends Model
         'currency',
         'payment_method',
         'transaction_id',
+        'voucher_image',
         'status',
         'payment_date',
         'due_date',
         'invoice_url',
+        'notes',
     ];
 
     protected $casts = [

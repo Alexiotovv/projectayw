@@ -173,7 +173,7 @@
                                 Crear Cuenta <span></span>
                             </button>
                             
-                            <a href="{{ route('customer.login') }}" class="default-btn btn-secondary">
+                            <a href="{{ route('login') }}" class="default-btn btn-secondary">
                                 <i class="fas fa-sign-in-alt me-2"></i>Ya tengo cuenta
                             </a>
                         </div>

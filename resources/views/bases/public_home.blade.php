@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 
 <!-- Mirrored from cutesolution.com/html/techvio/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 13:19:26 GMT -->
@@ -77,26 +77,42 @@
 					<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
 						<ul class="navbar-nav">
 							<li class="nav-item"> 
-								<a href="{{route('inicio')}}" class="nav-link">Home <i class=""></i></a>
+								<a href="{{route('inicio')}}" class="nav-link">{{ __('home.menu_home') }} <i class=""></i></a>
 								
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link">About US</a>
+								<a href="" class="nav-link">{{ __('home.menu_about') }}</a>
 							</li>
 													
 							<li class="nav-item">
-								<a href="{{route('contacto.index')}}" class="nav-link">Contact</a>
+								<a href="{{route('contacto.index')}}" class="nav-link">{{ __('home.menu_contact') }}</a>
 							</li>
 							<li class="nav-item">
-								<a href="{{route('portfolio')}}" class="nav-link">Portfolio</a>
+								<a href="{{route('portfolio')}}" class="nav-link">{{ __('home.menu_portfolio') }}</a>
 							</li>
 							<li class="nav-item">
-								<a href="{{ route('email.corporate') }}" class="nav-link">Correos Corporativos</a>
+								<a href="{{ route('public.services.index') }}" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+								<ul class="dropdown-menu">
+									@forelse(($publicServiceTypes ?? []) as $serviceType)
+									<li class="nav-item">
+										<a href="{{ route('public.services.show', $serviceType['slug']) }}" class="nav-link">{{ $serviceType['label'] }}</a>
+									</li>
+									@empty
+									<li class="nav-item"><a href="{{ route('public.services.index') }}" class="nav-link">Ver servicios</a></li>
+									@endforelse
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a href="{{ route('login') }}" class="nav-link">{{ __('home.menu_customers') }}</a>
 							</li>
 							
 						</ul>
 						<div class="other-option">
-							<a class="default-btn" href="{{route('customer.login')}}">Customers <span></span></a>
+							<label for="lang-switch" class="sr-only">{{ __('home.language') }}</label>
+							<select id="lang-switch" class="form-select d-inline-block" style="width:auto; margin-right:10px;" onchange="window.location.href='{{ url('/lang') }}/' + this.value;">
+								<option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('home.lang_en') }}</option>
+								<option value="es" {{ app()->getLocale() === 'es' ? 'selected' : '' }}>{{ __('home.lang_es') }}</option>
+							</select>
 						</div>
 					</div>
 				</nav>

@@ -11,93 +11,71 @@ class EmailCorporateController extends Controller
 {
     public function index()
     {
-        // Definir los planes de correos corporativos (ya tienes esto)
-        $plans = [
-            [
-                'id' => 'personal',
-                'name' => 'PLAN PERSONAL',
-                'price' => '9.90',
-                'period' => 'mes',
-                'features' => [
-                    '5 Cuentas de correo',
-                    'Disco 10 GB SSD NVMe',
-                    'Antivirus de correo 24hrs.',
-                    'Herramienta Anti Spam',
-                    '2 Reenviadores de correo',
-                    'Autoresponders',
-                    'Soporte POP / IMAP / SMTP',
-                    'Webmail',
-                ],
-                'recommended' => false,
-                'popular' => false
-            ],
-            [
-                'id' => 'premium',
-                'name' => 'PLAN PREMIUM',
-                'price' => '14.90',
-                'period' => 'mes',
-                'features' => [
-                    '10 Cuentas de correo',
-                    'Disco 25 GB SSD NVMe',
-                    'Antivirus de correo 24hrs.',
-                    'Herramienta Anti Spam',
-                    '5 Reenviadores de correo',
-                    'Autoresponders',
-                    'Soporte POP / IMAP / SMTP',
-                    'Webmail',
-                ],
-                'recommended' => true,
-                'popular' => true
-            ],
-            [
-                'id' => 'avanzado',
-                'name' => 'PLAN AVANZADO',
-                'price' => '24.90',
-                'period' => 'mes',
-                'features' => [
-                    '20 Cuentas de correo',
-                    'Disco 50 GB SSD NVMe',
-                    'Antivirus de correo 24hrs.',
-                    'Herramienta Anti Spam',
-                    '10 Reenviadores de correo',
-                    'Autoresponders',
-                    'Soporte POP / IMAP / SMTP',
-                    'Webmail',
-                ],
-                'recommended' => false,
-                'popular' => false
-            ]
+        $commonFeatures = [
+            __('email_corporate.feature_antivirus'),
+            __('email_corporate.feature_antispam'),
+            __('email_corporate.feature_autoresponders'),
+            __('email_corporate.feature_protocols'),
+            __('email_corporate.feature_webmail'),
         ];
 
-        // Información adicional (ya tienes esto)
-        $serviceInfo = [
-            'title' => 'Correos Corporativos para Empresas',
-            'subtitle' => '¡Elige tu plan favorito y mejora la gestión de tu comunicación empresarial!',
-            'benefits' => [
-                'Comunicación profesional con tu dominio',
-                'Seguridad empresarial avanzada',
-                'Soporte técnico especializado 24/7',
-                'Escalabilidad según tus necesidades',
-                'Migración gratuita desde otros servicios'
+        $plans = [
+            [
+                'id'          => 'personal',
+                'name'        => __('email_corporate.plan_personal'),
+                'price'       => '9.90',
+                'features'    => array_merge(
+                    [
+                        __('email_corporate.feature_accounts_5'),
+                        __('email_corporate.feature_disk_10'),
+                    ],
+                    $commonFeatures,
+                    [__('email_corporate.feature_forwarders_2')]
+                ),
+                'recommended' => false,
+                'popular'     => false,
             ],
-            'faq' => [
-                [
-                    'question' => '¿En cuánto tiempo activan el servicio?',
-                    'answer' => 'Activamos tu servicio en menos de 24 horas hábiles después de recibir el pago.'
-                ],
-                [
-                    'question' => '¿Ofrecen prueba gratuita?',
-                    'answer' => 'Sí, ofrecemos 30 días de prueba gratuita para que evalúes nuestro servicio.'
-                ],
-                [
-                    'question' => '¿Puedo migrar mis correos existentes?',
-                    'answer' => '¡Claro! Ofrecemos migración gratuita desde cualquier proveedor de correo.'
-                ],
-                [
-                    'question' => '¿Qué métodos de pago aceptan?',
-                    'answer' => 'Aceptamos Yape, Plin, transferencias bancarias y tarjetas de crédito/débito.'
-                ]
-            ]
+            [
+                'id'          => 'premium',
+                'name'        => __('email_corporate.plan_premium'),
+                'price'       => '14.90',
+                'features'    => array_merge(
+                    [
+                        __('email_corporate.feature_accounts_10'),
+                        __('email_corporate.feature_disk_25'),
+                    ],
+                    $commonFeatures,
+                    [__('email_corporate.feature_forwarders_5')]
+                ),
+                'recommended' => true,
+                'popular'     => true,
+            ],
+            [
+                'id'          => 'avanzado',
+                'name'        => __('email_corporate.plan_advanced'),
+                'price'       => '24.90',
+                'features'    => array_merge(
+                    [
+                        __('email_corporate.feature_accounts_20'),
+                        __('email_corporate.feature_disk_50'),
+                    ],
+                    $commonFeatures,
+                    [__('email_corporate.feature_forwarders_10')]
+                ),
+                'recommended' => false,
+                'popular'     => false,
+            ],
+        ];
+
+        $serviceInfo = [
+            'title'    => __('email_corporate.service_title'),
+            'subtitle' => __('email_corporate.service_subtitle'),
+            'faq'      => [
+                ['question' => __('email_corporate.faq_q1'), 'answer' => __('email_corporate.faq_a1')],
+                ['question' => __('email_corporate.faq_q2'), 'answer' => __('email_corporate.faq_a2')],
+                ['question' => __('email_corporate.faq_q3'), 'answer' => __('email_corporate.faq_a3')],
+                ['question' => __('email_corporate.faq_q4'), 'answer' => __('email_corporate.faq_a4')],
+            ],
         ];
 
         return view('email-corporate.index', compact('plans', 'serviceInfo'));

@@ -17,7 +17,6 @@ class User extends Authenticatable
         'password',
         'phone',
         'company',
-        'is_customer',
     ];
 
     protected $hidden = [
@@ -27,7 +26,6 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_customer' => 'boolean',
     ];
 
     // Relación con servicios
@@ -45,6 +43,6 @@ class User extends Authenticatable
     // Verificar si es cliente
     public function isCustomer()
     {
-        return $this->is_customer === true;
+        return $this->hasRole('customer');
     }
 }

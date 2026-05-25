@@ -17,7 +17,7 @@
     
     <style>
         :root {
-            --sidebar-width: 250px;
+            --sidebar-width: 230px;
             --header-height: 70px;
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
@@ -36,6 +36,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--light-bg);
             color: #333;
+            font-size: 0.92rem;
+            line-height: 1.45;
             overflow-x: hidden;
         }
         
@@ -54,7 +56,7 @@
         }
         
         .sidebar-header {
-            padding: 25px 20px;
+            padding: 20px 16px;
             background: rgba(0, 0, 0, 0.2);
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -72,25 +74,25 @@
         }
         
         .sidebar-header .logo i {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--primary-color);
         }
         
         .sidebar-header h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            font-weight: 600;
             margin-bottom: 5px;
             color: white;
         }
         
         .sidebar-header p {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 0;
         }
         
         .sidebar-user {
-            padding: 15px 20px;
+            padding: 12px 16px;
             background: rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
@@ -98,33 +100,33 @@
         }
         
         .sidebar-user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 8px;
             font-weight: bold;
             color: white;
         }
         
         .sidebar-user-info h6 {
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             margin-bottom: 2px;
             color: white;
         }
         
         .sidebar-user-info small {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: rgba(255, 255, 255, 0.6);
         }
         
         /* Sidebar Menu */
         .sidebar-menu {
-            padding: 20px 0;
-            height: calc(100vh - 200px);
+            padding: 14px 0;
+            height: calc(100vh - 180px);
             overflow-y: auto;
         }
         
@@ -142,17 +144,18 @@
         }
         
         .nav-item {
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         
         .nav-link {
-            padding: 12px 20px;
+            padding: 10px 16px;
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             display: flex;
             align-items: center;
             border-left: 3px solid transparent;
             transition: all 0.3s;
+            font-size: 0.88rem;
         }
         
         .nav-link:hover {
@@ -168,9 +171,9 @@
         }
         
         .nav-link i {
-            width: 25px;
-            font-size: 1.1rem;
-            margin-right: 10px;
+            width: 20px;
+            font-size: 0.95rem;
+            margin-right: 8px;
         }
         
         .nav-link .badge {
@@ -179,20 +182,20 @@
             padding: 3px 6px;
         }
         
-        .dropdown-menu {
+        #sidebar .dropdown-menu {
             background: rgba(0, 0, 0, 0.2);
             border: none;
             box-shadow: none;
             padding: 0;
         }
         
-        .dropdown-item {
-            padding: 8px 20px 8px 45px;
+        #sidebar .dropdown-item {
+            padding: 7px 18px 7px 40px;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
+            font-size: 0.82rem;
         }
         
-        .dropdown-item:hover {
+        #sidebar .dropdown-item:hover {
             background: rgba(255, 255, 255, 0.1);
             color: white;
         }
@@ -211,14 +214,14 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: rgba(0, 0, 0, 0.2);
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .sidebar-footer small {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: rgba(255, 255, 255, 0.5);
         }
         
@@ -251,14 +254,14 @@
             background: none;
             border: none;
             color: var(--primary-color);
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             cursor: pointer;
             margin-right: 20px;
             display: none;
         }
         
         .page-title h1 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 5px;
             color: var(--primary-color);
@@ -291,7 +294,7 @@
             position: relative;
             cursor: pointer;
             color: #6c757d;
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             transition: color 0.3s;
         }
         
@@ -316,42 +319,58 @@
             border-radius: 50px;
             transition: background 0.3s;
         }
+
+        .user-dropdown.dropdown-toggle::after {
+            display: none;
+        }
         
         .user-dropdown:hover {
             background: rgba(0, 0, 0, 0.05);
         }
         
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 8px;
             font-weight: bold;
             color: white;
         }
         
         .user-info h6 {
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             margin-bottom: 2px;
             font-weight: 600;
         }
         
         .user-info small {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: #6c757d;
         }
         
         /* Dropdown Menu */
         .dropdown-menu-end {
+            background-color: #ffffff;
             border: none;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             padding: 10px 0;
             min-width: 200px;
+        }
+
+        .dropdown-menu-end .dropdown-item {
+            color: #212529;
+            font-size: 0.82rem;
+            padding: 8px 14px;
+        }
+
+        .dropdown-menu-end .dropdown-item:hover {
+            background-color: #f3f4f6;
+            color: #111827;
         }
         
         .dropdown-divider {
@@ -469,6 +488,7 @@
         
         .card-body {
             padding: 20px;
+            font-size: 0.88rem;
         }
         
         /* Tables */
@@ -497,8 +517,9 @@
         .btn {
             border-radius: 6px;
             font-weight: 500;
-            padding: 8px 16px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            line-height: 1.25;
         }
         
         .btn-primary {
@@ -527,8 +548,8 @@
         }
         
         .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.8rem;
+            padding: 4px 8px;
+            font-size: 0.75rem;
         }
         
         /* Badges */
@@ -544,13 +565,27 @@
             font-weight: 600;
             color: var(--primary-color);
             margin-bottom: 8px;
+            font-size: 0.82rem;
         }
         
         .form-control, .form-select {
             border-radius: 6px;
             border: 1px solid #ddd;
-            padding: 10px 15px;
-            font-size: 0.95rem;
+            padding: 7px 11px;
+            font-size: 0.84rem;
+            line-height: 1.25;
+        }
+
+        textarea.form-control {
+            min-height: 92px;
+        }
+
+        .content-area .form-check-label {
+            font-size: 0.82rem;
+        }
+
+        .content-area .table {
+            font-size: 0.84rem;
         }
         
         .form-control:focus, .form-select:focus {
@@ -663,11 +698,30 @@
             background-color: #252525;
             border-color: var(--secondary-color);
         }
+
+        [data-bs-theme="dark"] .dropdown-menu-end {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+
+        [data-bs-theme="dark"] .dropdown-menu-end .dropdown-item {
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="dark"] .dropdown-menu-end .dropdown-item:hover {
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
     </style>
     
     @stack('styles')
 </head>
 <body>
+    @php
+        $homeDashboardRoute = auth()->check() && auth()->user()->hasAnyRole(['superadmin', 'admin'])
+            ? route('admin.dashboard')
+            : route('customer.dashboard');
+    @endphp
     <!-- Sidebar -->
     <div id="sidebar">
         <!-- Sidebar Header -->
@@ -693,102 +747,162 @@
         <!-- Sidebar Menu -->
         <div class="sidebar-menu">
             <ul class="nav flex-column">
+                @can('view_dashboard')
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" 
-                       href="{{ route('admin.dashboard') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.dashboard', 'customer.dashboard') ? 'active' : '' }}"
+                       href="{{ $homeDashboardRoute }}">
                         <i class="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
+                @endcan
+
+                @canany(['view_certificados', 'create_certificados', 'edit_certificados', 'delete_certificados'])
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('certificados.*') ? 'active' : '' }}" 
+                    <a class="nav-link {{ request()->routeIs('certificados.*') ? 'active' : '' }}"
                        href="{{ route('certificados.index') }}">
                         <i class="fas fa-certificate"></i>
                         <span>Certificados</span>
                         @php
-                            $pendingCount = App\Models\Certificado::count(); // Cambia esto según tu lógica
+                            $pendingCount = App\Models\Certificado::count();
                         @endphp
                         @if($pendingCount > 0)
                             <span class="badge bg-danger">{{ $pendingCount }}</span>
                         @endif
                     </a>
                 </li>
-                
+                @endcanany
+
+                @canany(['view_users', 'edit_users'])
                 <li class="nav-item">
-                    <a class="nav-link" href="#cursosSubmenu" data-bs-toggle="collapse">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>Cursos</span>
-                        <i class="fas fa-chevron-right ms-auto"></i>
-                    </a>
-                    <div class="collapse" id="cursosSubmenu">
-                        <ul class="nav flex-column ps-4">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-list"></i>
-                                    <span>Lista de Cursos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-plus-circle"></i>
-                                    <span>Nuevo Curso</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-users"></i>
-                                    <span>Estudiantes</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Estadísticas</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#usuariosSubmenu" data-bs-toggle="collapse">
+                    <a class="nav-link collapsed" href="#usuariosSubmenu" data-bs-toggle="collapse" data-bs-target="#usuariosSubmenu" aria-expanded="false">
                         <i class="fas fa-users-cog"></i>
                         <span>Usuarios</span>
                         <i class="fas fa-chevron-right ms-auto"></i>
                     </a>
                     <div class="collapse" id="usuariosSubmenu">
                         <ul class="nav flex-column ps-4">
+                            @can('view_users')
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
                                     <i class="fas fa-user-friends"></i>
                                     <span>Todos los Usuarios</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('edit_users')
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-user-tie"></i>
-                                    <span>Clientes</span>
+                                <a class="nav-link {{ request()->routeIs('admin.users.create') ? 'active' : '' }}" href="{{ route('admin.users.create') }}">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Nuevo Usuario</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-user-shield"></i>
-                                    <span>Administradores</span>
+                                <a class="nav-link {{ request()->routeIs('admin.users.roles*') ? 'active' : '' }}" href="{{ route('admin.users.roles') }}">
+                                    <i class="fas fa-user-tag"></i>
+                                    <span>Roles de Usuarios</span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
-                
+                @endcanany
+
+                @can('manage_services')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-cog"></i>
-                        <span>Configuración</span>
+                    <a class="nav-link {{ request()->routeIs('customer.services*') ? 'active' : '' }}"
+                       href="{{ route('customer.services') }}">
+                        <i class="fas fa-server"></i>
+                        <span>Mis Servicios</span>
                     </a>
                 </li>
-                
+                @endcan
+
+                @role('superadmin')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.service-plans.*') ? 'active' : '' }}"
+                       href="{{ route('admin.service-plans.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Planes de Servicio</span>
+                    </a>
+                </li>
+                @endrole
+
+                @role('superadmin')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.payment-methods.*') ? 'active' : '' }}"
+                       href="{{ route('admin.payment-methods.index') }}">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Medios de Pago</span>
+                    </a>
+                </li>
+                @endrole
+
+                @if(auth()->check() && auth()->user()->hasAnyRole(['superadmin', 'admin']))
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}"
+                       href="{{ route('admin.payments.index') }}">
+                        <i class="fas fa-money-check-alt"></i>
+                        <span>Revisar Pagos</span>
+                    </a>
+                </li>
+                @endif
+
+                @can('view_payments')
+                @if(auth()->check() && auth()->user()->hasRole('customer'))
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('customer.payments*') ? 'active' : '' }}"
+                       href="{{ route('customer.payments') }}">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Pagos</span>
+                    </a>
+                </li>
+                @endif
+                @endcan
+
+                @can('update_profile')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('customer.profile') ? 'active' : '' }}"
+                       href="{{ route('customer.profile') }}">
+                        <i class="fas fa-user"></i>
+                        <span>Mi Perfil</span>
+                    </a>
+                </li>
+                @endcan
+
+                @canany(['view_roles', 'create_roles'])
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#rolesPermisosSubmenu" data-bs-toggle="collapse" data-bs-target="#rolesPermisosSubmenu" aria-expanded="false">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Roles y Permisos</span>
+                        <i class="fas fa-chevron-right ms-auto"></i>
+                    </a>
+                    <div class="collapse" id="rolesPermisosSubmenu">
+                        <ul class="nav flex-column ps-4">
+                            @can('view_roles')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}"
+                                   href="{{ route('admin.roles.index') }}">
+                                    <i class="fas fa-list"></i>
+                                    <span>Lista de Roles</span>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create_roles')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.roles.create') ? 'active' : '' }}"
+                                   href="{{ route('admin.roles.create') }}">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Nuevo Rol</span>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+                @endcanany
+
                 <li class="nav-item mt-4">
                     <a class="nav-link" href="{{ route('inicio') }}" target="_blank">
                         <i class="fas fa-external-link-alt"></i>
@@ -819,7 +933,7 @@
                     <h1>@yield('page-title', 'Dashboard')</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ $homeDashboardRoute }}">Home</a></li>
                             <li class="breadcrumb-item active">@yield('breadcrumb', 'Dashboard')</li>
                         </ol>
                     </nav>
@@ -859,15 +973,22 @@
                 </div>
                 
                 <!-- User Dropdown -->
-                <div class="user-dropdown dropdown">
-                    <div class="user-avatar">
-                        {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
-                    </div>
-                    <div class="user-info" data-bs-toggle="dropdown">
-                        <h6>{{ Auth::user()->name ?? 'Administrador' }}</h6>
-                        <small>{{ Auth::user()->is_admin ? 'Administrador' : 'Usuario' }}</small>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-end">
+                <div class="dropdown">
+                    <a class="user-dropdown dropdown-toggle text-decoration-none"
+                       href="#"
+                       id="userMenuDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <div class="user-avatar">
+                            {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
+                        </div>
+                        <div class="user-info">
+                            <h6>{{ Auth::user()->name ?? 'Administrador' }}</h6>
+                            <small>{{ Auth::user()->is_admin ? 'Administrador' : 'Usuario' }}</small>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
                         <h6 class="dropdown-header">Cuenta</h6>
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-user me-2"></i>
@@ -878,13 +999,12 @@
                             Configuración
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt me-2"></i>
-                            Cerrar Sesión
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
+                            <button type="submit" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                Cerrar Sesión
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -925,86 +1045,90 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong>Se encontraron errores:</strong>
+                    <ul class="mb-0 mt-2 ps-3">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
             
             <!-- Page Content -->
-            @yield('admin_contenido')
+            @hasSection('admin_contenido')
+                @yield('admin_contenido')
+            @else
+                @yield('content')
+            @endif
         </div>
         
         <!-- Footer -->
         <footer class="main-footer">
-            <p class="mb-0">
-                &copy; {{ date('Y') }} AYW Solution - Panel de Administración
-                <span class="text-muted mx-2">|</span>
-                <small>Último acceso: {{ now()->format('d/m/Y H:i') }}</small>
-            </p>
+            <small>
+                <i class="fas fa-code"></i> AYW Solution v1.0
+            </small>
         </footer>
     </div>
-    
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Sidebar Toggle
-        $(document).ready(function() {
-            $('#sidebar-toggle').click(function() {
-                $('#sidebar').toggleClass('active');
-            });
-            
-            // Close sidebar on mobile when clicking outside
-            $(document).click(function(event) {
-                if ($(window).width() <= 992) {
-                    if (!$(event.target).closest('#sidebar, #sidebar-toggle').length) {
-                        $('#sidebar').removeClass('active');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sidebar toggle on mobile
+            var sidebar = document.getElementById('sidebar');
+            var sidebarToggle = document.getElementById('sidebar-toggle');
+            if (sidebar && sidebarToggle) {
+                sidebarToggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('active');
+                });
+            }
+
+            // Theme toggle
+            var html = document.documentElement;
+            var themeToggle = document.getElementById('theme-toggle');
+            var savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-bs-theme', savedTheme);
+
+            if (themeToggle) {
+                var icon = themeToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-moon', 'fa-sun');
+                    icon.classList.add(savedTheme === 'dark' ? 'fa-sun' : 'fa-moon');
+                }
+
+                themeToggle.addEventListener('click', function () {
+                    var currentTheme = html.getAttribute('data-bs-theme') || 'light';
+                    var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-bs-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+
+                    if (icon) {
+                        icon.classList.toggle('fa-moon');
+                        icon.classList.toggle('fa-sun');
                     }
+                });
+            }
+
+            // Expand submenu if there is an active child route
+            document.querySelectorAll('.collapse .nav-link.active').forEach(function (activeLink) {
+                var parentCollapse = activeLink.closest('.collapse');
+                if (!parentCollapse) return;
+
+                parentCollapse.classList.add('show');
+                var trigger = document.querySelector('[href="#' + parentCollapse.id + '"]');
+                if (trigger) {
+                    trigger.classList.add('active');
+                    trigger.setAttribute('aria-expanded', 'true');
                 }
             });
-            
-            // Theme Toggle
-            $('#theme-toggle').click(function() {
-                const currentTheme = $('html').attr('data-bs-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                $('html').attr('data-bs-theme', newTheme);
-                const icon = $(this).find('i');
-                icon.toggleClass('fa-moon fa-sun');
-                
-                // Save to localStorage
-                localStorage.setItem('theme', newTheme);
-            });
-            
-            // Load saved theme
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            $('html').attr('data-bs-theme', savedTheme);
-            const themeIcon = $('#theme-toggle i');
-            themeIcon.removeClass('fa-moon fa-sun');
-            themeIcon.addClass(savedTheme === 'dark' ? 'fa-sun' : 'fa-moon');
-            
-            // Auto close dropdowns on mobile
-            $('.dropdown-menu a').click(function() {
-                if ($(window).width() <= 768) {
-                    $(this).closest('.dropdown').removeClass('show');
-                }
-            });
-            
-            // Active menu highlighting
-            const currentUrl = window.location.href;
-            $('.sidebar-menu .nav-link').each(function() {
-                if (this.href === currentUrl) {
-                    $(this).addClass('active');
-                    // Expand parent if exists
-                    const parentCollapse = $(this).closest('.collapse');
-                    if (parentCollapse.length) {
-                        parentCollapse.addClass('show');
-                        parentCollapse.prev('.nav-link').attr('aria-expanded', 'true');
-                    }
-                }
-            });
-            
+
             // Initialize tooltips
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
+            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+                new bootstrap.Tooltip(el);
             });
         });
     </script>
