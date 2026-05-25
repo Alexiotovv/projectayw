@@ -96,6 +96,9 @@
                 <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
                     ¿Olvidaste tu contraseña?
                 </a>
+                <a href="https://aywsolution.com" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+                    Ir al Sitio Web
+                </a>
             </div>
         </form>
     </div>
