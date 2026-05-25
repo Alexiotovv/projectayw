@@ -49,6 +49,11 @@
 
                     @if($paymentMethod->type === 'card')
                     <div class="mb-3">
+                        @if($paymentMethod->qr_image_url)
+                        <div class="text-center mb-2">
+                            <img src="{{ $paymentMethod->qr_image_url }}" alt="Logo pasarela de pago" style="max-height: 80px; max-width: 200px; object-fit: contain;">
+                        </div>
+                        @endif
                         @if($paymentMethod->gateway_url)
                         <a href="{{ $paymentMethod->gateway_url }}" target="_blank" class="btn btn-success w-100">
                             Pagar con tarjeta
