@@ -11,6 +11,12 @@
                 <h5><i class="fas fa-user me-2"></i>Mi Perfil</h5>
             </div>
             <div class="card-body">
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <form action="{{ route('customer.profile.update') }}" method="POST" class="row g-3">
                     @csrf
                     @method('PUT')
@@ -32,7 +38,18 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" value="{{ $user->email }}" disabled>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->pending_email ?? $user->email) }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="form-text">
+                            Correo actual: <strong>{{ $user->email }}</strong>
+                        </div>
+                        @if ($user->pending_email)
+                            <div class="alert alert-warning mt-2 mb-0 py-2" role="alert">
+                                Cambio pendiente a <strong>{{ $user->pending_email }}</strong>. El correo solo se actualizara cuando confirmes el enlace enviado a esa direccion.
+                            </div>
+                        @endif
                     </div>
 
                     <div class="col-12">

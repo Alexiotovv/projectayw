@@ -174,6 +174,9 @@ Route::prefix('customer')->name('customer.')->group(function () {
 
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
         Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/profile/email/verify/{id}/{hash}', [DashboardController::class, 'verifyPendingEmail'])
+            ->middleware(['signed', 'throttle:6,1'])
+            ->name('profile.email.verify');
     });
 });
 
