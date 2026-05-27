@@ -961,23 +961,7 @@
                     <i class="fas fa-bell" data-bs-toggle="dropdown"></i>
                     <div class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header">Notificaciones</h6>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-certificate text-primary me-2"></i>
-                            Nuevo certificado generado
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user text-success me-2"></i>
-                            Nuevo usuario registrado
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-comment text-warning me-2"></i>
-                            Nuevo mensaje recibido
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-bell me-2"></i>
-                            Ver todas
-                        </a>
+                        <span class="dropdown-item-text text-muted">No hay notificaciones.</span>
                     </div>
                 </div>
                 
