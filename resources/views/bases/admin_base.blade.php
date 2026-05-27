@@ -959,7 +959,6 @@
                 <!-- Notifications -->
                 <div class="header-icon dropdown">
                     <i class="fas fa-bell" data-bs-toggle="dropdown"></i>
-                    <span class="badge bg-danger">3</span>
                     <div class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header">Notificaciones</h6>
                         <a class="dropdown-item" href="#">
