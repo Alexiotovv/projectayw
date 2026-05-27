@@ -60,6 +60,11 @@
                         </td>
                         <td class="text-end">
                             <a href="{{ route('admin.payments.show', $payment) }}" class="btn btn-sm btn-outline-primary">Revisar</a>
+                            <form method="POST" action="{{ route('admin.payments.destroy', $payment) }}" class="d-inline" onsubmit="return confirm('¿Eliminar este pago? Esta acción se puede revertir desde base de datos.')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
                         </td>
                     </tr>
                     @empty

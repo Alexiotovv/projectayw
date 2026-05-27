@@ -849,6 +849,16 @@
                 </li>
                 @endif
 
+                @if(auth()->check() && auth()->user()->hasAnyRole(['superadmin', 'admin']))
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.customer-services.*') ? 'active' : '' }}"
+                       href="{{ route('admin.customer-services.index') }}">
+                        <i class="fas fa-server"></i>
+                        <span>Servicios Contratados</span>
+                    </a>
+                </li>
+                @endif
+
                 @can('view_payments')
                 @if(auth()->check() && auth()->user()->hasRole('customer'))
                 <li class="nav-item">

@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServicePlanController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PaymentReviewController;
+use App\Http\Controllers\Admin\CustomerServiceController;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -81,6 +82,11 @@ Route::middleware(['auth', 'role:superadmin|admin'])->prefix('admin')->name('adm
     Route::get('payments/{payment}', [PaymentReviewController::class, 'show'])->name('payments.show');
     Route::post('payments/{payment}/approve', [PaymentReviewController::class, 'approve'])->name('payments.approve');
     Route::post('payments/{payment}/reject', [PaymentReviewController::class, 'reject'])->name('payments.reject');
+    Route::delete('payments/{payment}', [PaymentReviewController::class, 'destroy'])->name('payments.destroy');
+
+    // Servicios contratados por clientes (superadmin/admin)
+    Route::get('customer-services', [CustomerServiceController::class, 'index'])->name('customer-services.index');
+    Route::delete('customer-services/{service}', [CustomerServiceController::class, 'destroy'])->name('customer-services.destroy');
 });
 
 

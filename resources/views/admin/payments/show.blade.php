@@ -7,7 +7,14 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="h4 mb-0">Pago #{{ $payment->id }}</h2>
-    <a href="{{ route('admin.payments.index') }}" class="btn btn-outline-secondary">Volver</a>
+    <div class="d-flex gap-2">
+        <form method="POST" action="{{ route('admin.payments.destroy', $payment) }}" onsubmit="return confirm('¿Eliminar este pago? Esta acción se puede revertir desde base de datos.')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-outline-danger">Eliminar pago</button>
+        </form>
+        <a href="{{ route('admin.payments.index') }}" class="btn btn-outline-secondary">Volver</a>
+    </div>
 </div>
 
 <div class="row g-4">

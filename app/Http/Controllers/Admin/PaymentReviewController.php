@@ -82,4 +82,12 @@ class PaymentReviewController extends Controller
         return redirect()->route('admin.payments.show', $payment)
             ->with('success', 'Pago rechazado correctamente.');
     }
+
+    public function destroy(Payment $payment)
+    {
+        $payment->delete();
+
+        return redirect()->route('admin.payments.index')
+            ->with('success', 'Pago eliminado correctamente.');
+    }
 }
