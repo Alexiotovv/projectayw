@@ -859,6 +859,16 @@
                 </li>
                 @endif
 
+                @can('view_contact_messages')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}"
+                       href="{{ route('admin.contact-messages.index') }}">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <span>Consultas Web</span>
+                    </a>
+                </li>
+                @endcan
+
                 @can('view_payments')
                 @if(auth()->check() && auth()->user()->hasRole('customer'))
                 <li class="nav-item">

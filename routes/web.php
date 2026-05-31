@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\ServicePlanController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PaymentReviewController;
 use App\Http\Controllers\Admin\CustomerServiceController;
+use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -87,6 +88,13 @@ Route::middleware(['auth', 'role:superadmin|admin'])->prefix('admin')->name('adm
     // Servicios contratados por clientes (superadmin/admin)
     Route::get('customer-services', [CustomerServiceController::class, 'index'])->name('customer-services.index');
     Route::delete('customer-services/{service}', [CustomerServiceController::class, 'destroy'])->name('customer-services.destroy');
+
+    // Módulo de consultas del formulario de contacto
+    Route::middleware('permission:view_contact_messages')->group(function () {
+        Route::get('contact-messages', [ContactMessageController::class, 'index'])->name('contact-messages.index');
+        Route::put('contact-messages/{contacto}', [ContactMessageController::class, 'update'])->name('contact-messages.update');
+        Route::delete('contact-messages/{contacto}', [ContactMessageController::class, 'destroy'])->name('contact-messages.destroy');
+    });
 });
 
 

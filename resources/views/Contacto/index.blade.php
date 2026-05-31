@@ -7,11 +7,11 @@
 			<div class="d-table-cell">
 				<div class="container">
 					<div class="page-title-content">
-						<h2>Contact</h2>
+						<h2>{{ __('contact.page_title') }}</h2>
 						<ul>
-							<li><a href="{{route('inicio')}}">Home</a>
+							<li><a href="{{route('inicio')}}">{{ __('contact.breadcrumb_home') }}</a>
 							</li>
-							<li>Contact</li>
+							<li>{{ __('contact.breadcrumb_contact') }}</li>
 						</ul>
 					</div>
 				</div>
@@ -24,38 +24,50 @@
 	<div class="contact-section section-padding">
 		<div class="container">
 			<div class="section-title">
-				<h6 class="sub-title">Let's Talk</h6>
-				<h2>Contact Us</h2>
+				<h6 class="sub-title">{{ __('contact.section_kicker') }}</h6>
+				<h2>{{ __('contact.section_title') }}</h2>
 			</div>
 			<div class="row align-items-center">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact-form">
+						@if (session('success'))
+							<div class="alert alert-success">{{ session('success') }}</div>
+						@endif
+						@if ($errors->any())
+							<div class="alert alert-danger">
+								<ul class="mb-0">
+									@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
 						<p class="form-message"></p>
-						{{-- <form id="contact-form" class="contact-form form" action="{{route('contacto.store')}}" method="POST">@csrf
+						<form id="contact-form" class="contact-form form" action="{{route('contacto.store')}}" method="POST">@csrf
 							<div class="row">
 								<div class="col-lg-6 col-md-6">
 									<div class="form-group">
-										<input type="text" name="name" id="name" class="form-control" required placeholder="Your Name">
+										<input type="text" name="name" id="name" class="form-control" required placeholder="{{ __('contact.name_placeholder') }}" value="{{ old('name') }}">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6">
 									<div class="form-group">
-										<input type="email" name="email" id="email" class="form-control" required placeholder="Your Email">
+										<input type="email" name="email" id="email" class="form-control" required placeholder="{{ __('contact.email_placeholder') }}" value="{{ old('email') }}">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6">
 									<div class="form-group">
-										<input type="text" name="phone" id="phone" required class="form-control" placeholder="Your Phone">
+										<input type="text" name="phone" id="phone" required class="form-control" placeholder="{{ __('contact.phone_placeholder') }}" value="{{ old('phone') }}">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6">
 									<div class="form-group">
-										<input type="text" name="subject" id="subject" class="form-control" required placeholder="Your Subject">
+										<input type="text" name="subject" id="subject" class="form-control" required placeholder="{{ __('contact.subject_placeholder') }}" value="{{ old('subject') }}">
 									</div>
 								</div>
 								<div class="col-lg-12 col-md-12">
 									<div class="form-group">
-										<textarea name="message" class="form-control" id="message" cols="30" rows="6" required placeholder="Your Message"></textarea>
+										<textarea name="message" class="form-control" id="message" cols="30" rows="6" required placeholder="{{ __('contact.message_placeholder') }}">{{ old('message') }}</textarea>
 									</div>
 								</div>
 								<div class="col-lg-12 col-md-12">
@@ -63,14 +75,13 @@
                                     data-sitekey="6LchT7UpAAAAANbVqXyVKDjSlEktx3zK3m6KNTnJ" 
                                     data-callback='onSubmit' 
                                     data-action='submit'
-                                    >Send Message <span></span></button>
+                                    >{{ __('contact.send_button') }} <span></span></button>
 								</div>
 							</div>
-						</form> --}}
+						</form>
 						<h4>
-							Write to us at our email "info@aywsolution.com", and we’ll get back to you as soon as possible.
-
-						</h3>
+							{{ __('contact.contact_hint') }}
+						</h4>
 					</div>
 				</div>
 			</div>

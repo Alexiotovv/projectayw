@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
             'manage_service_plans',
             'manage_payment_methods',
             'view_payments',
+            'view_contact_messages',
             'update_profile',
         ];
 
