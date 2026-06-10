@@ -6,6 +6,7 @@ use App\Mail\ContactMessageReceived;
 use App\Models\contactos;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class ContactosController extends Controller
@@ -23,7 +24,32 @@ class ContactosController extends Controller
             'phone' => ['required', 'string', 'max:30'],
             'subject' => ['required', 'string', 'max:190'],
             'message' => ['required', 'string', 'max:4000'],
+            'g-recaptcha-response' => ['required', 'string'],
         ]);
+
+        $secretKey = (string) config('services.recaptcha.secret_key');
+
+        if ($secretKey === '') {
+            return back()
+                ->withErrors([
+                    'captcha' => 'Configura RECAPTCHA_SECRET_KEY antes de enviar el formulario.',
+                ])
+                ->withInput();
+        }
+
+        $captchaResponse = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => $secretKey,
+            'response' => $validated['g-recaptcha-response'],
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (! $captchaResponse->ok() || ! data_get($captchaResponse->json(), 'success', false)) {
+            return back()
+                ->withErrors([
+                    'captcha' => 'Confirma que no eres un robot para continuar.',
+                ])
+                ->withInput();
+        }
 
         $contacto = contactos::create([
             'name' => $validated['name'],

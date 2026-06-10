@@ -71,11 +71,12 @@
 									</div>
 								</div>
 								<div class="col-lg-12 col-md-12">
-									<button type="submit" class="default-btn submit-btn g-recaptcha"
-                                    data-sitekey="6LchT7UpAAAAANbVqXyVKDjSlEktx3zK3m6KNTnJ" 
-                                    data-callback='onSubmit' 
-                                    data-action='submit'
-                                    >{{ __('contact.send_button') }} <span></span></button>
+									@if (config('services.recaptcha.site_key'))
+										<div class="form-group">
+											<div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+										</div>
+									@endif
+									<button type="submit" class="default-btn submit-btn">{{ __('contact.send_button') }} <span></span></button>
 								</div>
 							</div>
 						</form>
@@ -173,20 +174,7 @@
 							</ul>
 						</div>
 					</div>
-					{{-- <div class="col-lg-2 col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<div class="footer-heading">
-								<h3>Useful Links</h3>
-							</div>
-							<ul class="footer-quick-links">
-								<li><a href="about.html">About Us</a></li>
-								<li><a href="portfolio.html">Case Study</a></li>
-								<li><a href="contact.html">Contact Us</a></li>
-								<li><a href="privacy-policy.html">Privacy Policy</a></li>
-								<li><a href="terms-condition.html">Terms & Conditions</a></li>
-							</ul>
-						</div>
-					</div> --}}
+
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="single-footer-widget">
 							<div class="footer-heading">
@@ -244,10 +232,4 @@
 
 @section('script_footer')
     <script src="https://www.google.com/recaptcha/api.js"></script>
-	<script>
-        
-		function onSubmit(token) {
-			document.getElementById("contact-form").submit();
-		}
-	</script>
 @endsection
