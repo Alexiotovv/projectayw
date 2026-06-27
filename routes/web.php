@@ -203,6 +203,7 @@ Route::post('/contacto/store',[ContactosController::class,'store'])->name('conta
 // Route::view('/customers', 'customers.index')->name('customers');
 
 Route::view('/portfolio', 'portfolio.portfolio-index')->name('portfolio');
+Route::view('/about-us', 'about.about-us')->name('about.us');
 
 //Cursos
 Route::get('/courses/index',[CoursesController::class,'index'])->name('courses.index');

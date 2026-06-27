@@ -81,7 +81,7 @@
 								
 							</li>
 							<li class="nav-item">
-								<a href="" class="nav-link">{{ __('home.menu_about') }}</a>
+								<a href="{{ route('about.us') }}" class="nav-link">{{ __('home.menu_about') }}</a>
 							</li>
 													
 							<li class="nav-item">
