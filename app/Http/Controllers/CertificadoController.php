@@ -56,10 +56,10 @@ class CertificadoController extends Controller
                 ]);
             }
 
-            $certificado->habilidades = implode($nombres, ', ');
+            $certificado->habilidades = implode(', ', $nombres);
             $certificado->saveQuietly();
         } catch (\Throwable $e) {
-            $certificado->habilidades = $habilidades;
+            $certificado->habilidades = is_string($habilidades) ? $habilidades : null;
             $certificado->saveQuietly();
         }
     }

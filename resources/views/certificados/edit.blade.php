@@ -140,7 +140,7 @@
                                     if ($habilidadesTexto === null) {
                                         $habilidadesTexto = $certificado->habilidades_array;
                                         if (is_array($habilidadesTexto)) {
-                                            $habilidadesTexto = implode($habilidadesTexto, ', ');
+                                            $habilidadesTexto = implode(', ', $habilidadesTexto);
                                         }
                                     }
                                 @endphp

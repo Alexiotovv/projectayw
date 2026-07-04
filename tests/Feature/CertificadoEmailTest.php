@@ -35,4 +35,29 @@ class CertificadoEmailTest extends TestCase
             return $mail->hasTo($certificado->email);
         });
     }
+
+    public function test_edit_view_renders_for_legacy_string_habilities(): void
+    {
+        $certificado = Certificado::create([
+            'nombre_completo' => 'Ana Pérez',
+            'nombre_curso' => 'Curso de Laravel',
+            'fecha_expedicion' => now()->toDateString(),
+            'email' => 'ana@example.com',
+            'modalidad' => 'Virtual',
+            'horas_duracion' => 6,
+            'publico' => true,
+            'instructor' => 'Alex Vásquez',
+            'habilidades' => 'Apache, Laravel, Git',
+        ]);
+
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->withViewErrors([])
+            ->get(route('certificados.edit', $certificado));
+
+        $response->assertOk();
+        $response->assertSee('Habilidades Adquiridas');
+        $response->assertSee('Apache, Laravel, Git');
+    }
 }

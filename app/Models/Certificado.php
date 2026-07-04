@@ -42,7 +42,15 @@ class Certificado extends Model
 
     public function habilidades()
     {
-        return $this->hasMany(CertificadoHabilidad::class)->orderBy('orden')->orderBy('id');
+        try {
+            if (Schema::hasTable('certificado_habilidades')) {
+                return $this->hasMany(CertificadoHabilidad::class)->orderBy('orden')->orderBy('id');
+            }
+        } catch (\Throwable $e) {
+            // Compatibilidad con entornos donde la tabla aún no está disponible.
+        }
+
+        return $this->hasMany(CertificadoHabilidad::class)->whereRaw('0 = 1');
     }
 
     public function getHabilidadesArrayAttribute()
@@ -60,6 +68,10 @@ class Certificado extends Model
         }
 
         $valor = $this->attributes['habilidades'] ?? $this->getAttribute('habilidades');
+
+        if (is_array($valor)) {
+            return array_values(array_filter(array_map('trim', $valor)));
+        }
 
         if (empty($valor)) {
             return [];
