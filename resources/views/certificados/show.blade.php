@@ -900,7 +900,7 @@
                                 <div class="signature-av">Alex Vasquez</div>
                                 <div class="signature-name">ALEX VÁSQUEZ VALDERRAMA</div>
                                 <div class="signature-credentials">
-                                    Especialista en DevOps & Desarrollo Web<br>
+                                    Ingeniero Informático y de Sistemas<br>
                                     Instructor Certificado AYW Solution
                                 </div>
                                 <div class="signature-separator"></div>
