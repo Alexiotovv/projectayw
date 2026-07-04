@@ -127,50 +127,21 @@
                                 <label class="form-label fw-bold">
                                     <i class="fas fa-cogs text-primary me-1"></i>Habilidades Adquiridas
                                 </label>
-                                <div class="form-text mb-2">Selecciona las habilidades que se certifican:</div>
-                                
-                                <div class="row">
-                                    @php
-                                        $habilidadesDefault = [
-                                            'Apache', 'Fail2Ban', 'UFW', 'Git', 'Laravel', 
-                                            'Dominio', 'DNS', 'SSH', 'PHP', 'MySQL',
-                                            'Ubuntu Server', 'Nginx', 'Composer', 'SSL/TLS'
-                                        ];
-                                    @endphp
-                                    
-                                    <div class="col-md-6">
-                                        @foreach(array_slice($habilidadesDefault, 0, 7) as $skill)
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input skill-checkbox" 
-                                                       type="checkbox" 
-                                                       value="{{ $skill }}" 
-                                                       id="skill_{{ $loop->index }}"
-                                                       checked>
-                                                <label class="form-check-label" for="skill_{{ $loop->index }}">
-                                                    <i class="fas fa-check-circle text-success me-1"></i>{{ $skill }}
-                                                </label>
-                                            </div>
-                                        @endforeach
+                                <div class="form-text mb-2">Escribe o agrega nuevas habilidades manualmente. Puedes separar cada una con coma o enter.</div>
+
+                                <div class="border rounded p-3 bg-light">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="nuevaHabilidadInput" placeholder="Ej: Docker, CI/CD, Redis">
+                                        <button type="button" class="btn btn-outline-primary" id="agregarHabilidadBtn">
+                                            <i class="fas fa-plus me-1"></i>Agregar
+                                        </button>
                                     </div>
-                                    
-                                    <div class="col-md-6">
-                                        @foreach(array_slice($habilidadesDefault, 7) as $skill)
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input skill-checkbox" 
-                                                       type="checkbox" 
-                                                       value="{{ $skill }}" 
-                                                       id="skill_{{ $loop->index + 7 }}"
-                                                       checked>
-                                                <label class="form-check-label" for="skill_{{ $loop->index + 7 }}">
-                                                    <i class="fas fa-check-circle text-success me-1"></i>{{ $skill }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
+
+                                    <div id="habilidadesList" class="d-flex flex-wrap gap-2"></div>
                                 </div>
-                                
-                                <input type="hidden" name="habilidades" id="habilidadesInput" 
-                                       value="{{ implode(',', $habilidadesDefault) }}">
+
+                                <textarea name="habilidades" id="habilidadesInput" class="form-control mt-3" rows="3" placeholder="Apache, Laravel, Git">{{ old('habilidades') }}</textarea>
+                                <div class="form-text">Se guardarán como registros separados y aparecerán en el certificado.</div>
                             </div>
 
                             <!-- Configuración Avanzada -->
@@ -235,7 +206,7 @@
                                                 <p class="text-muted small" id="previewFecha">
                                                     {{ old('fecha_expedicion', date('d/m/Y')) }}
                                                 </p>
-                                                <div class="mt-2">
+                                                <div class="mt-2" id="previewHabilidades">
                                                     <span class="badge bg-secondary">Apache</span>
                                                     <span class="badge bg-secondary">Laravel</span>
                                                     <span class="badge bg-secondary">Git</span>
@@ -272,32 +243,75 @@
 </div>
 
 <script>
-// Actualizar habilidades en el input hidden
-document.querySelectorAll('.skill-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', actualizarHabilidades);
-});
+const habilidadesInput = document.getElementById('habilidadesInput');
+const nuevaHabilidadInput = document.getElementById('nuevaHabilidadInput');
+const agregarHabilidadBtn = document.getElementById('agregarHabilidadBtn');
+const habilidadesList = document.getElementById('habilidadesList');
 
-function actualizarHabilidades() {
-    const habilidades = [];
-    document.querySelectorAll('.skill-checkbox:checked').forEach(checkbox => {
-        habilidades.push(checkbox.value);
-    });
-    document.getElementById('habilidadesInput').value = habilidades.join(',');
-    
-    // Actualizar vista previa
-    const previewContainer = document.querySelector('#vistaPrevia .badge-container');
-    if (previewContainer) {
-        previewContainer.innerHTML = habilidades.slice(0, 3).map(skill => 
-            `<span class="badge bg-secondary me-1">${skill}</span>`
-        ).join('');
-        if (habilidades.length > 3) {
-            previewContainer.innerHTML += `<span class="badge bg-secondary">+ ${habilidades.length - 3} más</span>`;
-        }
-    }
+function obtenerHabilidades() {
+    return habilidadesInput.value
+        .split(/\r\n|\n|,/) 
+        .map(item => item.trim())
+        .filter(Boolean);
 }
 
+function renderHabilidades() {
+    const habilidades = obtenerHabilidades();
+    habilidadesList.innerHTML = '';
+
+    if (habilidades.length === 0) {
+        habilidadesList.innerHTML = '<span class="text-muted">Aún no hay habilidades agregadas.</span>';
+        return;
+    }
+
+    habilidades.forEach((skill, index) => {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-primary rounded-pill d-flex align-items-center gap-2 px-3 py-2';
+        badge.innerHTML = `${skill}<button type="button" class="btn-close btn-close-white btn-sm" data-index="${index}" aria-label="Eliminar"></button>`;
+        habilidadesList.appendChild(badge);
+    });
+
+    habilidadesList.querySelectorAll('button.btn-close').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = Number(button.getAttribute('data-index'));
+            const habilidades = obtenerHabilidades();
+            habilidades.splice(index, 1);
+            habilidadesInput.value = habilidades.join(', ');
+            renderHabilidades();
+            actualizarVistaPrevia();
+        });
+    });
+
+    actualizarVistaPrevia();
+}
+
+function agregarHabilidad() {
+    const texto = nuevaHabilidadInput.value.trim();
+    if (!texto) {
+        nuevaHabilidadInput.focus();
+        return;
+    }
+
+    const habilidades = obtenerHabilidades();
+    const nuevas = texto.split(/\r\n|\n|,/).map(item => item.trim()).filter(Boolean);
+    const union = [...new Set([...habilidades, ...nuevas])];
+    habilidadesInput.value = union.join(', ');
+    nuevaHabilidadInput.value = '';
+    renderHabilidades();
+}
+
+agregarHabilidadBtn.addEventListener('click', agregarHabilidad);
+nuevaHabilidadInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        agregarHabilidad();
+    }
+});
+
+habilidadesInput.addEventListener('input', renderHabilidades);
+
 // Actualizar vista previa en tiempo real
-document.querySelectorAll('#certificadoForm input, #certificadoForm select').forEach(element => {
+document.querySelectorAll('#certificadoForm input, #certificadoForm select, #certificadoForm textarea').forEach(element => {
     element.addEventListener('change', actualizarVistaPrevia);
     element.addEventListener('keyup', actualizarVistaPrevia);
 });
@@ -324,6 +338,22 @@ function actualizarVistaPrevia() {
         document.getElementById('previewFecha').textContent = 
             fecha.toLocaleDateString('es-ES');
     }
+
+    const habilidades = obtenerHabilidades();
+    const previewHabilidades = document.getElementById('previewHabilidades');
+    if (previewHabilidades) {
+        previewHabilidades.innerHTML = '';
+        if (habilidades.length > 0) {
+            habilidades.slice(0, 4).forEach(skill => {
+                previewHabilidades.innerHTML += `<span class="badge bg-secondary me-1">${skill}</span>`;
+            });
+            if (habilidades.length > 4) {
+                previewHabilidades.innerHTML += `<span class="badge bg-secondary">+ ${habilidades.length - 4} más</span>`;
+            }
+        } else {
+            previewHabilidades.innerHTML = '<span class="badge bg-secondary">Sin habilidades</span>';
+        }
+    }
 }
 
 // Botón de vista previa completa
@@ -344,8 +374,11 @@ document.getElementById('previewBtn').addEventListener('click', function(e) {
 
 // Inicializar
 document.addEventListener('DOMContentLoaded', function() {
+    if (!habilidadesInput.value) {
+        habilidadesInput.value = 'Apache, Laravel, Git';
+    }
+    renderHabilidades();
     actualizarVistaPrevia();
-    actualizarHabilidades();
     
     // Configurar fecha mínima (últimos 2 años)
     const fechaInput = document.querySelector('input[name="fecha_expedicion"]');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificado;
+use App\Models\CertificadoHabilidad;
+use App\Mail\CertificadoEnviadoMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -23,6 +25,28 @@ class CertificadoController extends Controller
         return view('certificados.create');
     }
 
+    private function guardarHabilidades(Certificado $certificado, ?string $habilidades): void
+    {
+        $certificado->habilidades()->delete();
+
+        if (empty($habilidades)) {
+            return;
+        }
+
+        $nombres = array_values(array_filter(array_map('trim', preg_split('/\r\n|\n|,/', $habilidades) ?: [])));
+
+        foreach ($nombres as $index => $nombre) {
+            if ($nombre === '') {
+                continue;
+            }
+
+            $certificado->habilidades()->create([
+                'nombre' => $nombre,
+                'orden' => $index,
+            ]);
+        }
+    }
+
     // Almacenar nuevo certificado
     public function store(Request $request)
     {
@@ -38,8 +62,6 @@ class CertificadoController extends Controller
             'enviar_email' => 'boolean'
         ]);
 
-        $habilidadesDefault = 'Apache, Fail2Ban, UFW, Git, Laravel, Dominio, DNS, SSH, PHP, MySQL';
-        
         $certificado = Certificado::create([
             'nombre_completo' => $validated['nombre_completo'],
             'nombre_curso' => $validated['nombre_curso'],
@@ -47,10 +69,11 @@ class CertificadoController extends Controller
             'email' => $validated['email'],
             'modalidad' => $validated['modalidad'] ?? 'Virtual',
             'horas_duracion' => $validated['horas_duracion'] ?? 6,
-            'habilidades' => $validated['habilidades'] ?? $habilidadesDefault,
             'publico' => $validated['publico'] ?? true,
             'instructor' => 'Alex Vásquez'
         ]);
+
+        $this->guardarHabilidades($certificado, $validated['habilidades'] ?? null);
 
         // Opcional: Enviar email
         if ($request->has('enviar_email') && $certificado->email) {
@@ -95,6 +118,7 @@ class CertificadoController extends Controller
         ]);
 
         $certificado->update($validated);
+        $this->guardarHabilidades($certificado, $validated['habilidades'] ?? null);
 
         return redirect()->route('certificados.index')
             ->with('success', "Certificado actualizado exitosamente");
@@ -109,6 +133,23 @@ class CertificadoController extends Controller
 
         return redirect()->route('certificados.index')
             ->with('success', "Certificado de {$nombre} eliminado exitosamente");
+    }
+
+    public function enviarPorCorreo(Request $request, Certificado $certificado)
+    {
+        if (empty($certificado->email)) {
+            return redirect()->back()->with('error', 'No existe un correo registrado para este certificado.');
+        }
+
+        $enlace = route('certificados.show', $certificado->url_hash);
+
+        try {
+            Mail::to($certificado->email)->send(new CertificadoEnviadoMail($certificado, $enlace));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'No se pudo enviar el correo. Verifica la configuración SMTP.');
+        }
+
+        return redirect()->back()->with('success', 'Correo enviado correctamente a ' . $certificado->email);
     }
 
     // Generar PDF del certificado
@@ -140,8 +181,8 @@ class CertificadoController extends Controller
         $certificado->modalidad = $data['modalidad'] ?? 'Virtual';
         $certificado->instructor = 'Alex Vásquez';
         $certificado->codigo_unico = 'PREVIEW-' . strtoupper(\Illuminate\Support\Str::random(8));
-        $certificado->habilidades_array = $data['habilidades'] 
-            ? explode(',', $data['habilidades']) 
+        $certificado->habilidades_array = $data['habilidades']
+            ? array_values(array_filter(array_map('trim', preg_split('/\r\n|\n|,/', $data['habilidades']) ?: [])))
             : ['Apache', 'Laravel', 'Git', 'MySQL'];
 
         return view('certificados.show', compact('certificado'));

@@ -119,11 +119,24 @@
 
                             <!-- Habilidades -->
                             <div class="col-12 mb-3">
-                                <label class="form-label fw-bold">Habilidades Adquiridas</label>
-                                <textarea name="habilidades" 
-                                          class="form-control @error('habilidades') is-invalid @enderror" 
-                                          rows="3">{{ old('habilidades', $certificado->habilidades) }}</textarea>
-                                <div class="form-text">Separar por comas. Ej: Apache, Laravel, Git, MySQL</div>
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-cogs text-primary me-1"></i>Habilidades Adquiridas
+                                </label>
+                                <div class="form-text mb-2">Agrega o elimina habilidades manualmente. Puedes separar cada una con coma o enter.</div>
+
+                                <div class="border rounded p-3 bg-light">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="nuevaHabilidadInput" placeholder="Ej: Docker, CI/CD, Redis">
+                                        <button type="button" class="btn btn-outline-primary" id="agregarHabilidadBtn">
+                                            <i class="fas fa-plus me-1"></i>Agregar
+                                        </button>
+                                    </div>
+
+                                    <div id="habilidadesList" class="d-flex flex-wrap gap-2"></div>
+                                </div>
+
+                                <textarea name="habilidades" id="habilidadesInput" class="form-control mt-3 @error('habilidades') is-invalid @enderror" rows="3" placeholder="Apache, Laravel, Git">{{ old('habilidades', $certificado->habilidades_array ? implode($certificado->habilidades_array, ', ') : '') }}</textarea>
+                                <div class="form-text">Se guardarán como registros separados y aparecerán en el certificado.</div>
                                 @error('habilidades')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -170,4 +183,73 @@
         </div>
     </div>
 </div>
+
+<script>
+const habilidadesInput = document.getElementById('habilidadesInput');
+const nuevaHabilidadInput = document.getElementById('nuevaHabilidadInput');
+const agregarHabilidadBtn = document.getElementById('agregarHabilidadBtn');
+const habilidadesList = document.getElementById('habilidadesList');
+
+function obtenerHabilidades() {
+    return habilidadesInput.value
+        .split(/\r\n|\n|,/) 
+        .map(item => item.trim())
+        .filter(Boolean);
+}
+
+function renderHabilidades() {
+    const habilidades = obtenerHabilidades();
+    habilidadesList.innerHTML = '';
+
+    if (habilidades.length === 0) {
+        habilidadesList.innerHTML = '<span class="text-muted">Aún no hay habilidades agregadas.</span>';
+        return;
+    }
+
+    habilidades.forEach((skill, index) => {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-primary rounded-pill d-flex align-items-center gap-2 px-3 py-2';
+        badge.innerHTML = `${skill}<button type="button" class="btn-close btn-close-white btn-sm" data-index="${index}" aria-label="Eliminar"></button>`;
+        habilidadesList.appendChild(badge);
+    });
+
+    habilidadesList.querySelectorAll('button.btn-close').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = Number(button.getAttribute('data-index'));
+            const habilidades = obtenerHabilidades();
+            habilidades.splice(index, 1);
+            habilidadesInput.value = habilidades.join(', ');
+            renderHabilidades();
+        });
+    });
+}
+
+function agregarHabilidad() {
+    const texto = nuevaHabilidadInput.value.trim();
+    if (!texto) {
+        nuevaHabilidadInput.focus();
+        return;
+    }
+
+    const habilidades = obtenerHabilidades();
+    const nuevas = texto.split(/\r\n|\n|,/).map(item => item.trim()).filter(Boolean);
+    const union = [...new Set([...habilidades, ...nuevas])];
+    habilidadesInput.value = union.join(', ');
+    nuevaHabilidadInput.value = '';
+    renderHabilidades();
+}
+
+agregarHabilidadBtn.addEventListener('click', agregarHabilidad);
+nuevaHabilidadInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        agregarHabilidad();
+    }
+});
+habilidadesInput.addEventListener('input', renderHabilidades);
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderHabilidades();
+});
+</script>
 @endsection

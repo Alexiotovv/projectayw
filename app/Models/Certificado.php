@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+use App\Models\CertificadoHabilidad;
+
 class Certificado extends Model
 {
     use HasFactory;
@@ -38,9 +40,14 @@ class Certificado extends Model
         });
     }
 
+    public function habilidades()
+    {
+        return $this->hasMany(CertificadoHabilidad::class)->orderBy('orden')->orderBy('id');
+    }
+
     public function getHabilidadesArrayAttribute()
     {
-        return $this->habilidades ? explode(',', $this->habilidades) : [];
+        return $this->habilidades()->pluck('nombre')->toArray();
     }
 
     public function getUrlCertificadoAttribute()

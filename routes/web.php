@@ -130,6 +130,9 @@ Route::middleware(['auth'])->group(function () {
         
     Route::delete('/admin/certificados/{id}', [CertificadoController::class, 'destroy'])
         ->name('certificados.destroy');
+
+    Route::post('/admin/certificados/{certificado}/send-email', [CertificadoController::class, 'enviarPorCorreo'])
+        ->name('certificados.send-email');
         
     Route::get('/admin/certificados/preview', [CertificadoController::class, 'preview'])
         ->name('certificados.preview');

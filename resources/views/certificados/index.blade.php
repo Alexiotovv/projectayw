@@ -120,6 +120,15 @@
                                                        title="Editar">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
+                                                    @if($certificado->email)
+                                                        <button type="button" 
+                                                                class="btn btn-sm btn-outline-success"
+                                                                title="Enviar por correo"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#sendEmailModal{{ $certificado->id }}">
+                                                            <i class="fas fa-paper-plane"></i>
+                                                        </button>
+                                                    @endif
                                                     <button type="button" 
                                                             class="btn btn-sm btn-outline-info"
                                                             onclick="copiarEnlace('{{ route('certificados.show', $certificado->url_hash) }}')"
@@ -145,6 +154,33 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        @foreach($certificados as $certificado)
+                            @if($certificado->email)
+                                <div class="modal fade" id="sendEmailModal{{ $certificado->id }}" tabindex="-1" aria-labelledby="sendEmailModalLabel{{ $certificado->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="sendEmailModalLabel{{ $certificado->id }}">Enviar certificado por correo</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="mb-2">Se enviará el enlace del certificado a:</p>
+                                                <strong>{{ $certificado->email }}</strong>
+                                                <p class="mt-3 mb-0">¿Deseas continuar?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <form action="{{ route('certificados.send-email', $certificado->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success">Sí, enviar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
 
                         <div class="mt-4">
                             {{ $certificados->links() }}

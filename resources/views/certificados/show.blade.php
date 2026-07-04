@@ -813,8 +813,9 @@
                 <i class="fas fa-award"></i>
             </div>
             <div class="certificate-title">
-                <h1>CERTIFICADO <span class="gold-accent">ACADÉMICO</span></h1>
-                <p>DE APROVECHAMIENTO Y EXCELENCIA</p>
+                <h1>AYWSOLUTION <span class="gold-accent"></span></h1>
+                {{--<p>DE APROVECHAMIENTO Y EXCELENCIA</p> --}}
+                {{-- <img src="{{ asset('assets/img/logo_ayw.png') }}" alt="Logo AYW Solution" style="max-height: 60px;"> --}}
             </div>
         </div>
         
@@ -830,8 +831,8 @@
                     <div class="awarded-to">EL PRESENTE DOCUMENTO SE OTORGA A</div>
                     <h2 class="student-name">{{ strtoupper($certificado->nombre_completo) }}</h2>
                     <div class="certificate-description">
-                        Por haber demostrado dedicación, compromiso y haber completado satisfactoriamente 
-                        el programa de estudios especializado:
+                        Por haber completado satisfactoriamente 
+                        el curso de:
                     </div>
                     <div class="course-name">{{ $certificado->nombre_curso }}</div>
                 </div>
@@ -912,7 +913,7 @@
                         
                         <!-- Institution Stamp -->
                         <div class="institution-stamp">
-                            <div class="signature-title">SELLO INSTITUCIONAL</div>
+                            <div class="signature-title">INSTITUCIÓN</div>
                             <div class="institution-seal">
                                 <!-- Imagen PNG del sello -->
                                 <img src="{{ asset('assets/img/logo_ayw.png') }}" 
