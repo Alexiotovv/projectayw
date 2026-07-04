@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\CertificadoHabilidad;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-
-use App\Models\CertificadoHabilidad;
 
 class Certificado extends Model
 {
@@ -47,7 +47,25 @@ class Certificado extends Model
 
     public function getHabilidadesArrayAttribute()
     {
-        return $this->habilidades()->pluck('nombre')->toArray();
+        try {
+            if (Schema::hasTable('certificado_habilidades')) {
+                $habilidades = $this->habilidades()->pluck('nombre')->filter()->values()->toArray();
+
+                if (!empty($habilidades)) {
+                    return $habilidades;
+                }
+            }
+        } catch (\Throwable $e) {
+            // Fallback al formato anterior si la tabla no está disponible.
+        }
+
+        $valor = $this->attributes['habilidades'] ?? $this->getAttribute('habilidades');
+
+        if (empty($valor)) {
+            return [];
+        }
+
+        return array_values(array_filter(array_map('trim', preg_split('/\r\n|\n|,/', $valor) ?: [])));
     }
 
     public function getUrlCertificadoAttribute()

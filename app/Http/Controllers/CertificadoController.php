@@ -7,6 +7,7 @@ use App\Models\CertificadoHabilidad;
 use App\Mail\CertificadoEnviadoMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -27,23 +28,39 @@ class CertificadoController extends Controller
 
     private function guardarHabilidades(Certificado $certificado, ?string $habilidades): void
     {
-        $certificado->habilidades()->delete();
-
-        if (empty($habilidades)) {
-            return;
-        }
-
-        $nombres = array_values(array_filter(array_map('trim', preg_split('/\r\n|\n|,/', $habilidades) ?: [])));
-
-        foreach ($nombres as $index => $nombre) {
-            if ($nombre === '') {
-                continue;
+        try {
+            if (!Schema::hasTable('certificado_habilidades')) {
+                $certificado->habilidades = $habilidades;
+                $certificado->saveQuietly();
+                return;
             }
 
-            $certificado->habilidades()->create([
-                'nombre' => $nombre,
-                'orden' => $index,
-            ]);
+            $certificado->habilidades()->delete();
+
+            if (empty($habilidades)) {
+                $certificado->habilidades = null;
+                $certificado->saveQuietly();
+                return;
+            }
+
+            $nombres = array_values(array_filter(array_map('trim', preg_split('/\r\n|\n|,/', $habilidades) ?: [])));
+
+            foreach ($nombres as $index => $nombre) {
+                if ($nombre === '') {
+                    continue;
+                }
+
+                $certificado->habilidades()->create([
+                    'nombre' => $nombre,
+                    'orden' => $index,
+                ]);
+            }
+
+            $certificado->habilidades = implode($nombres, ', ');
+            $certificado->saveQuietly();
+        } catch (\Throwable $e) {
+            $certificado->habilidades = $habilidades;
+            $certificado->saveQuietly();
         }
     }
 

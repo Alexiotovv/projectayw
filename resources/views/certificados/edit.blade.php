@@ -135,7 +135,16 @@
                                     <div id="habilidadesList" class="d-flex flex-wrap gap-2"></div>
                                 </div>
 
-                                <textarea name="habilidades" id="habilidadesInput" class="form-control mt-3 @error('habilidades') is-invalid @enderror" rows="3" placeholder="Apache, Laravel, Git">{{ old('habilidades', $certificado->habilidades_array ? implode($certificado->habilidades_array, ', ') : '') }}</textarea>
+                                @php
+                                    $habilidadesTexto = old('habilidades');
+                                    if ($habilidadesTexto === null) {
+                                        $habilidadesTexto = $certificado->habilidades_array;
+                                        if (is_array($habilidadesTexto)) {
+                                            $habilidadesTexto = implode($habilidadesTexto, ', ');
+                                        }
+                                    }
+                                @endphp
+                                <textarea name="habilidades" id="habilidadesInput" class="form-control mt-3 @error('habilidades') is-invalid @enderror" rows="3" placeholder="Apache, Laravel, Git">{{ $habilidadesTexto }}</textarea>
                                 <div class="form-text">Se guardarán como registros separados y aparecerán en el certificado.</div>
                                 @error('habilidades')
                                     <div class="invalid-feedback">{{ $message }}</div>
