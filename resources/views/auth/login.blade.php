@@ -46,7 +46,7 @@
     <div class="login-card">
         <div class="logo-container">
             <!-- Cambia esta ruta por la de tu logo -->
-            <img src="{{ asset('images/logo_ayw.png') }}" alt="Logo ayw" class="logo-img">
+            <img src="{{ asset('storage/images/logo_ayw.png') }}" alt="Logo ayw" class="logo-img">
         </div>
         
         <h3 class="login-title text-center">Iniciar Sesión</h3>
