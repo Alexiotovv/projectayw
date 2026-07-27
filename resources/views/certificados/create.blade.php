@@ -102,7 +102,7 @@
                                        class="form-control @error('horas_duracion') is-invalid @enderror" 
                                        value="{{ old('horas_duracion', 6) }}"
                                        min="1"
-                                       max="100">
+                                       max="2000">
                                 @error('horas_duracion')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
