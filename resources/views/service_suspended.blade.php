@@ -6,14 +6,18 @@
     <title>Servicio suspendido | AYW Solution</title>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <style>
+        html, body { height: 100%; }
         body {
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #f8fafc;
             color: #0f172a;
         }
         .page-container {
-            min-height: 100vh;
+            flex: 1 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,5 +69,10 @@
             </p>
         </div>
     </div>
+        <footer>
+            <div style="max-width:720px;margin:12px auto;padding:12px 24px;background:transparent;text-align:center;color:#6b7280;font-size:14px;border-radius:12px;">
+                <div>AYW Solution &nbsp;|&nbsp; Soporte: <a href="mailto:info@aywsolution.com">info@aywsolution.com</a> &nbsp;|&nbsp; <a href="https://aywsolution.com/">Home</a></div>
+            </div>
+        </footer>
 </body>
 </html>
