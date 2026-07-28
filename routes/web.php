@@ -206,6 +206,7 @@ Route::prefix('customer')->name('customer.')->group(function () {
 Route::get('/',[HomesController::class,'index'])->name('inicio');
 Route::get('/contacto/index',[ContactosController::class,'index'])->name('contacto.index');
 Route::post('/contacto/store',[ContactosController::class,'store'])->name('contacto.store');
+Route::view('/service-suspended', 'service_suspended')->name('service.suspended');
 // Route::view('/customers', 'customers.index')->name('customers');
 
 Route::view('/portfolio', 'portfolio.portfolio-index')->name('portfolio');
