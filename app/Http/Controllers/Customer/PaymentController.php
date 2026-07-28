@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\PaymentMethod;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +38,19 @@ class PaymentController extends Controller
         $paymentMethods = PaymentMethod::where('is_active', true)->orderBy('name')->get();
 
         return view('customer.payment.show', compact('payment', 'paymentMethod', 'paymentMethods'));
+    }
+
+    public function invoice($id)
+    {
+        $payment = Auth::user()->payments()
+            ->with(['service', 'user'])
+            ->findOrFail($id);
+
+        $paymentMethod = PaymentMethod::where('code', $payment->payment_method)->first();
+
+        $pdf = Pdf::loadView('customer.payment.invoice', compact('payment', 'paymentMethod'));
+
+        return $pdf->download("comprobante-{$payment->invoice_number}.pdf");
     }
 
     public function updateMethod(Request $request, $id)

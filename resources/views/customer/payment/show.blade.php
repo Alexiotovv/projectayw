@@ -11,20 +11,58 @@
 </div>
 
 <div class="row g-3">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <div class="card shadow-sm h-100">
             <div class="card-body">
-                <h6 class="mb-3">Resumen</h6>
+                <h6 class="mb-3">Factura</h6>
+                <p class="mb-1"><strong>Número:</strong> {{ $payment->invoice_number }}</p>
                 <p class="mb-1"><strong>Servicio:</strong> {{ $payment->service?->name ?? 'N/A' }}</p>
+                <p class="mb-1"><strong>Plan:</strong> {{ $payment->service?->plan ?? 'N/A' }}</p>
                 <p class="mb-1"><strong>Monto:</strong> S/. {{ number_format($payment->amount, 2) }}</p>
                 <p class="mb-1"><strong>Método:</strong> {{ strtoupper($payment->payment_method) }}</p>
-                <p class="mb-1"><strong>Estado:</strong> {{ $payment->status }}</p>
-                <p class="mb-0"><strong>Vence:</strong> {{ $payment->due_date?->format('d/m/Y') }}</p>
+                <p class="mb-1"><strong>Fecha pago:</strong> {{ $payment->payment_date?->format('d/m/Y') }}</p>
+                <p class="mb-0"><strong>Vencimiento:</strong> {{ $payment->due_date?->format('d/m/Y') }}</p>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-6">
+    <div class="col-lg-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="mb-3">Comprobante</h6>
+                <p class="mb-1"><strong>Estado:</strong>
+                    <span class="badge bg-{{ $payment->status == 'completed' ? 'success' : ($payment->status == 'pending' ? 'warning' : 'danger') }}">
+                        {{ ucfirst($payment->status) }}
+                    </span>
+                </p>
+                <p class="mb-1"><strong>Descripción:</strong> Pago recurrente del servicio {{ $payment->service?->plan ?? 'N/A' }}.</p>
+                <p class="mb-1"><strong>Referencia:</strong> {{ $payment->transaction_id ?: 'No registrada' }}</p>
+                <div class="d-grid gap-2 mt-3">
+                    <a href="{{ route('customer.payments.invoice', $payment->id) }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-file-pdf me-1"></i> Descargar comprobante PDF
+                    </a>
+                    @if($payment->voucher_image)
+                        <a href="{{ Storage::url($payment->voucher_image) }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-image me-1"></i> Ver imagen del comprobante
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="mb-3">Estado del servicio</h6>
+                <p class="mb-1"><strong>Servicio:</strong> {{ $payment->service?->name ?? 'N/A' }}</p>
+                <p class="mb-1"><strong>Plan:</strong> {{ $payment->service?->plan ?? 'N/A' }}</p>
+                <p class="mb-0"><strong>Dominio:</strong> {{ $payment->service?->domain ?: 'N/A' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
         <div class="card shadow-sm h-100">
             <div class="card-body">
                 <h6 class="mb-3">Instrucciones de Pago</h6>

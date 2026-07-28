@@ -47,4 +47,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    public function getInvoiceNumberAttribute(): string
+    {
+        return 'FAC-' . str_pad($this->id, 6, '0', STR_PAD_LEFT);
+    }
 }

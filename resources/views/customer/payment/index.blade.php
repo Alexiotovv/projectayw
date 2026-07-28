@@ -84,7 +84,8 @@
                         <th>Fecha</th>
                         <th>Servicio</th>
                         <th>Monto</th>
-                        <th>Método</th>
+                        <th>Medio</th>
+                        <th>Comprobante</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
@@ -130,6 +131,14 @@
                                 @default
                                     <span class="badge bg-secondary">{{ $payment->payment_method }}</span>
                             @endswitch
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2 align-items-center">
+                                <a href="{{ route('customer.payments.invoice', $payment->id) }}" class="btn btn-sm btn-outline-primary" title="Descargar comprobante PDF">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
+                                <span class="small">{{ $payment->invoice_number }}</span>
+                            </div>
                         </td>
                         <td>
                             <span class="badge bg-{{ $payment->status == 'completed' ? 'success' : ($payment->status == 'pending' ? 'warning' : 'danger') }}">

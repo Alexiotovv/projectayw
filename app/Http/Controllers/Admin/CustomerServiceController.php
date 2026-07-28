@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -26,6 +28,49 @@ class CustomerServiceController extends Controller
             ->withQueryString();
 
         return view('admin.customer-services.index', compact('services', 'status'));
+    }
+
+    public function show(Service $service)
+    {
+        $service->load(['user', 'servicePlan', 'payments' => function ($query) {
+            $query->orderByDesc('payment_date');
+        }]);
+
+        $paymentMethods = PaymentMethod::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        $pendingPayments = $service->payments->where('status', Payment::STATUS_PENDING);
+        $completedPayments = $service->payments->where('status', Payment::STATUS_COMPLETED);
+
+        return view('admin.customer-services.show', compact('service', 'paymentMethods', 'pendingPayments', 'completedPayments'));
+    }
+
+    public function storePayment(Request $request, Service $service)
+    {
+        $validated = $request->validate([
+            'amount' => ['required', 'numeric', 'min:0'],
+            'payment_method_id' => ['required', 'exists:payment_methods,id'],
+            'notes' => ['nullable', 'string'],
+        ]);
+
+        $paymentMethod = PaymentMethod::where('id', $validated['payment_method_id'])
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        $service->payments()->create([
+            'user_id' => $service->user_id,
+            'amount' => $validated['amount'],
+            'currency' => 'PEN',
+            'payment_method' => $paymentMethod->code,
+            'status' => Payment::STATUS_PENDING,
+            'payment_date' => now(),
+            'due_date' => now()->addDays(3),
+            'notes' => $validated['notes'] ?? 'Pago manual generado por administrador',
+        ]);
+
+        return redirect()->route('admin.customer-services.show', $service)
+            ->with('success', 'Pago pendiente generado correctamente para el servicio.');
     }
 
     public function destroy(Service $service)

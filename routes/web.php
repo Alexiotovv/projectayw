@@ -87,6 +87,8 @@ Route::middleware(['auth', 'role:superadmin|admin'])->prefix('admin')->name('adm
 
     // Servicios contratados por clientes (superadmin/admin)
     Route::get('customer-services', [CustomerServiceController::class, 'index'])->name('customer-services.index');
+    Route::get('customer-services/{service}', [CustomerServiceController::class, 'show'])->name('customer-services.show');
+    Route::post('customer-services/{service}/payments', [CustomerServiceController::class, 'storePayment'])->name('customer-services.payments.store');
     Route::delete('customer-services/{service}', [CustomerServiceController::class, 'destroy'])->name('customer-services.destroy');
 
     // Módulo de consultas del formulario de contacto
@@ -188,6 +190,7 @@ Route::prefix('customer')->name('customer.')->group(function () {
         Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
         Route::post('/payments/{id}/method', [PaymentController::class, 'updateMethod'])->name('payments.updateMethod');
         Route::post('/payments/{id}/submit', [PaymentController::class, 'submit'])->name('payments.submit');
+        Route::get('/payments/{id}/invoice', [PaymentController::class, 'invoice'])->name('payments.invoice');
 
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
         Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');

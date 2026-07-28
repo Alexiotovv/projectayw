@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PaymentApprovedMail;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentReviewController extends Controller
 {
@@ -49,12 +51,19 @@ class PaymentReviewController extends Controller
                 'notes' => $validated['notes'] ?? $payment->notes,
             ]);
 
-            if ($payment->service && $payment->service->status !== 'active') {
-                $payment->service->update([
-                    'status' => 'active',
-                ]);
+            if ($payment->service) {
+                $service = $payment->service;
+                if ($service->status !== 'active') {
+                    $service->update(['status' => 'active']);
+                }
+
+                $service->fresh(['servicePlan'])->generateNextRecurringPayment();
             }
         });
+
+        if ($payment->user && $payment->user->email) {
+            Mail::to($payment->user->email)->send(new PaymentApprovedMail($payment));
+        }
 
         return redirect()->route('admin.payments.show', $payment)
             ->with('success', 'Pago confirmado y servicio activado correctamente.');

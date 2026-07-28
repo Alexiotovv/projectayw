@@ -54,11 +54,14 @@
                         </td>
                         <td>{{ optional($service->expiry_date)->format('d/m/Y') ?: 'N/A' }}</td>
                         <td class="text-end">
-                            <form method="POST" action="{{ route('admin.customer-services.destroy', $service) }}" class="d-inline" onsubmit="return confirm('¿Eliminar este servicio contratado?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                            </form>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="{{ route('admin.customer-services.show', $service) }}" class="btn btn-outline-info">Ver detalle</a>
+                                <form method="POST" action="{{ route('admin.customer-services.destroy', $service) }}" class="d-inline" onsubmit="return confirm('¿Eliminar este servicio contratado?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @empty
