@@ -50,7 +50,7 @@ class PaymentController extends Controller
 
         $pdf = Pdf::loadView('customer.payment.invoice', compact('payment', 'paymentMethod'));
 
-        return $pdf->download("comprobante-{$payment->invoice_number}.pdf");
+        return $pdf->stream("comprobante-{$payment->invoice_number}.pdf");
     }
 
     public function updateMethod(Request $request, $id)

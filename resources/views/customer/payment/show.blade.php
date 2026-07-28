@@ -38,7 +38,7 @@
                 <p class="mb-1"><strong>Descripción:</strong> Pago recurrente del servicio {{ $payment->service?->plan ?? 'N/A' }}.</p>
                 <p class="mb-1"><strong>Referencia:</strong> {{ $payment->transaction_id ?: 'No registrada' }}</p>
                 <div class="d-grid gap-2 mt-3">
-                    <a href="{{ route('customer.payments.invoice', $payment->id) }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('customer.payments.invoice', $payment->id) }}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
                         <i class="fas fa-file-pdf me-1"></i> Descargar comprobante PDF
                     </a>
                     @if($payment->voucher_image)

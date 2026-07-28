@@ -134,7 +134,7 @@
                         </td>
                         <td>
                             <div class="d-flex gap-2 align-items-center">
-                                <a href="{{ route('customer.payments.invoice', $payment->id) }}" class="btn btn-sm btn-outline-primary" title="Descargar comprobante PDF">
+                                <a href="{{ route('customer.payments.invoice', $payment->id) }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary" title="Descargar comprobante PDF">
                                     <i class="fas fa-file-pdf"></i>
                                 </a>
                                 <span class="small">{{ $payment->invoice_number }}</span>
