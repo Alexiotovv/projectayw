@@ -113,7 +113,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Fecha de pago</label>
-                                    <input type="text" class="form-control" value="{{ now()->format('d/m/Y') }}" disabled>
+                                    <input type="date" name="payment_date" class="form-control @error('payment_date') is-invalid @enderror" value="{{ old('payment_date', now()->format('Y-m-d')) }}" required>
+                                    @error('payment_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

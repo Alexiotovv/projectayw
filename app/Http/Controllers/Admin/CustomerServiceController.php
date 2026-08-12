@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Service;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CustomerServiceController extends Controller
@@ -51,6 +52,7 @@ class CustomerServiceController extends Controller
         $validated = $request->validate([
             'amount' => ['required', 'numeric', 'min:0'],
             'payment_method_id' => ['required', 'exists:payment_methods,id'],
+            'payment_date' => ['required', 'date'],
             'notes' => ['nullable', 'string'],
         ]);
 
@@ -64,8 +66,8 @@ class CustomerServiceController extends Controller
             'currency' => 'PEN',
             'payment_method' => $paymentMethod->code,
             'status' => Payment::STATUS_PENDING,
-            'payment_date' => now(),
-            'due_date' => now()->addDays(3),
+            'payment_date' => Carbon::parse($validated['payment_date']),
+            'due_date' => Carbon::parse($validated['payment_date'])->addDays(3),
             'notes' => $validated['notes'] ?? 'Pago manual generado por administrador',
         ]);
 
